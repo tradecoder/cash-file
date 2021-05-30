@@ -5,11 +5,18 @@ A simple cash management android app built with expo and firebase
 ## Starting the project
 
 1. Initialize the app using expo `expo init cash-file`
-2. Add firebase `npm install firebase` or `yarn add firebase`
-3. Create a `src` folder in the root directory 
-4. Create a `firebase` folder inside the `src` folder
-5. Create a `config.js` file in the `firebase` folder
-6. Add the following codes to the `config.js` file
+
+## Add Styles
+We will style our app with `native-base`. For documentation visit [NativeBase.io](https://nativebase.io/)
+1. Install native-base `npm install native-base --save`
+2. Install expo font `expo install expo-font`
+
+## Firebase configuration
+1. Add firebase `npm install firebase` or `yarn add firebase`
+2. Create a `src` folder in the root directory 
+3. Create a `firebase` folder inside the `src` folder
+4. Create a `config.js` file in the `firebase` folder
+5. Add the following codes to the `config.js` file
 
 ```javascript
 import * as firebase from 'firebase';
