@@ -6,7 +6,7 @@ A simple cash management android app built with expo and firebase
 
 1. Initialize the app using expo 
 
-```powershell
+```node
 expo init cash-file
 ```
 
@@ -14,12 +14,12 @@ expo init cash-file
 We will style our app with `native-base`. For documentation visit [NativeBase.io](https://nativebase.io/)
 1. Install native-base
 
-```powershell
+```node
 npm install native-base --save
 ```
 2. Install expo font
- 
-```powershell
+
+```node
 expo install expo-font
 ```
 
