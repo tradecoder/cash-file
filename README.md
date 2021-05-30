@@ -35,7 +35,7 @@ export { firebase };
 ```
 * Rremember, we need to replace the `firebaseConfig={}` data. To get the valid data follow the below steps now
 
-## Register an app with firebase 
+## Register an app with firebase and configure
 1. Signin on the  Firebase Console [https://console.firebase.google.com](https://console.firebase.google.com)
 2. Create a new project (you also can use your exising project) - click on `+ Add Project`
 3. After creating it, the Project Overview screen, click on `</>` `web`  to register an app
@@ -56,4 +56,27 @@ const firebaseConfig = {
 
 ```
 
-6. Then paste/replace the code to the `config.js` for the `const firebaseConfig={}` 
+6. Then paste/replace the code to the `config.js` for the `const firebaseConfig={}`
+
+## Create components
+1. Create a folder named `components` inside the `src` folder
+1. Create a file named `signup.component.js` inside the `components` folder
+2. Add the below code to `signup.component.js`
+
+```javascript
+import React, { useState } from 'react';
+import { View, Text, TextInput } from 'react-native';
+
+export default function Signup(){
+
+
+    return(
+        <div>
+        </div>
+    )
+}
+
+```
+
+
+
