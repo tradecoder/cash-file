@@ -22,6 +22,33 @@ npm install native-base --save
 ```node
 expo install expo-font
 ```
+3. By using NativeBase you may face an issue "Roboto_medium is not a system font..."<br>
+To solve this, go to the below listed files and search for "Roboto_medium" then replace all with "Roboto"
+
+* node_modules\native-base\dist\src\theme\variables\commonColor.js
+* node_modules\native-base\dist\src\theme\variables\material.js
+* node_modules\native-base\dist\src\theme\variables\platform.js
+
+4. Now replace all your codes in `App.js` with the following codes for this time only
+
+```javascript
+import React from 'react';
+import { Container, Text } from 'native-base';
+
+
+export default function App(){
+  return(
+    <Container>
+      <Text>Ok to start</Text>
+    </Container>
+  );
+}
+```
+
+5. Run your app and see if it's ok
+```javascript
+npm run android
+```
 
 ## Firebase configuration
 1. Add firebase `npm install firebase` or `yarn add firebase`
@@ -52,7 +79,7 @@ firebase.initializeApp(firebaseConfig);
 export { firebase };
 
 ```
-* Rremember, we need to replace the `firebaseConfig={}` data. To get the valid data follow the below steps now
+* Rremember, we need to replace the `firebaseConfig={}` data. To get the valid data please follow the below steps now
 
 ## Register an app with firebase and configure
 1. Signin on the  Firebase Console [https://console.firebase.google.com](https://console.firebase.google.com)
@@ -78,17 +105,15 @@ const firebaseConfig = {
 6. Then paste/replace the code to the `config.js` for the `const firebaseConfig={}`
 
 ## Create components
-1. Create a folder named `components` inside the `src` folder
-1. Create a file named `signup.component.js` inside the `components` folder
-2. Add the below code to `signup.component.js`
+1. Create a folder named `screens` inside the `src` folder
+1. Create a file named `signup.js` inside the `screens` folder
+2. Add the below code to `signup.js`
 
 ```javascript
 import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import {Container, Header, Content, Text, Button, Form, Input, Item } from 'native-base';
 
 export default function Signup(){
-
-
     return(
         <div>
         </div>
