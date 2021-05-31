@@ -86,7 +86,8 @@ export { firebase };
 2. Create a new project (you also can use your exising project) - click on `+ Add Project`
 3. After creating it, the Project Overview screen, click on `</>` `web`  to register an app
 4. Give a name to your app, click on `Register app` and complete it
-5. Now you will get the `firebaseConfig` data in the app console, there are two options, `CDN` and `Config`, select config and copy the full code like 
+5. Setup `Authentication` from the firebase menubar and for this time select `email and password` option
+6. Now you will get the `firebaseConfig` data in the app console, there are two options, `CDN` and `Config`, select config and copy the full code like 
 
 ```javascript
 const firebaseConfig = {
@@ -101,8 +102,7 @@ const firebaseConfig = {
 };
 
 ```
-
-6. Then paste/replace the code to the `config.js` for the `const firebaseConfig={}`
+7. Then paste/replace the code to the `config.js` for the `const firebaseConfig={}`
 
 ## Create components
 1. Create a folder named `screens` inside the `src` folder
