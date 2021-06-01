@@ -4,45 +4,69 @@ A simple cash management android app built with expo and firebase
 
 ## Starting the project
 
-1. Initialize the app using expo 
+1. Initialize the app using expo. If you don't have expo installed earlier, get it installed first. `npm install --global expo-cli` then run the below code in your terminal
 
 ```node
 expo init cash-file
 ```
 
 ## Add Styles
-We will style our app with `native-base`. For documentation visit [NativeBase.io](https://nativebase.io/)
-1. Install native-base
+We will style our app with `react-native-elements`. For documentation visit [React Native Elements](https://reactnativeelements.com/docs/)
+1. Install react-native-elements
 
 ```node
-npm install native-base --save
+npm install react-native-elements
 ```
-2. Install expo font
+2. Install react native vector icons
 
 ```node
-expo install expo-font
+npm install react-native-vector-icons
 ```
-3. By using NativeBase you may face an issue "Roboto_medium is not a system font..."<br>
-To solve this, go to the below listed files and search for "Roboto_medium" then replace all with "Roboto"
+3. Link the vector icons dependency
+```node
+npx react-native link react-native-vector-icons
+```
 
-* node_modules\native-base\dist\src\theme\variables\commonColor.js
-* node_modules\native-base\dist\src\theme\variables\material.js
-* node_modules\native-base\dist\src\theme\variables\platform.js
+4. Install react-native-safe-area-context
+```node
+npm install react-native-safe-area-context
+```
 
-4. Now replace all your codes in `App.js` with the following codes for this time only
+5. Link the safe-area-context
+```node
+react-native link react-native-safe-area-context
+```
+
+6. Now replace all your codes in `App.js` with the following codes for this time only
 
 ```javascript
 import React from 'react';
-import { Container, Text } from 'native-base';
+import {ThemeProvider, Text} from 'react-native-elements';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-
-export default function App(){
+export default function App() {
   return(
-    <Container>
-      <Text>Ok to start</Text>
-    </Container>
-  );
+    <SafeAreaProvider>
+      <ThemeProvider theme={theme}>
+        // we will put our code/components  here
+        <Text>Our app is ready to start with your code</Text>
+
+      </ThemeProvider>
+    </SafeAreaProvider>
+  ) 
 }
+const theme = {
+    Button: {
+      raised: true,
+      color: 'auto',
+      titleStyle:{          
+          fontSize:30,
+      },
+      Input:{
+          color:'red',
+      }
+    },
+  };
 ```
 
 5. Run your app and see if it's ok
@@ -106,21 +130,7 @@ const firebaseConfig = {
 
 ## Create components
 1. Create a folder named `screens` inside the `src` folder
-1. Create a file named `signup.js` inside the `screens` folder
-2. Add the below code to `signup.js`
-
-```javascript
-import React, { useState } from 'react';
-import {Container, Header, Content, Text, Button, Form, Input, Item } from 'native-base';
-
-export default function Signup(){
-    return(
-        <div>
-        </div>
-    )
-}
-
-```
-
+2. Create a file named `signup.js` inside the `screens` folder
+3. Add the below code to `signup.js`
 
 
