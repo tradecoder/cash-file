@@ -65,11 +65,9 @@ const theme = {
     leftComponent:{size:30},
     centerComponent:{
       style:{fontSize:26}
-    }
-    ,
+    },
     rightComponent:{size:30}
-  }
-  ,
+  },
   Button: {raised: true},
   Text:{
     style:{fontSize:22}
