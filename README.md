@@ -41,32 +41,40 @@ react-native link react-native-safe-area-context
 
 ```javascript
 import React from 'react';
-import {ThemeProvider, Text} from 'react-native-elements';
+import {ThemeProvider, Header,  Text} from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   return(
     <SafeAreaProvider>
-      <ThemeProvider theme={theme}>
-        // we will put our code/components  here
-        <Text>Our app is ready to start with your code</Text>
-
-      </ThemeProvider>
+      <ThemeProvider theme={theme}> 
+      <Header
+        placement="left"
+        leftComponent={{ icon: 'menu', color: '#fff'}}
+        centerComponent={{ text: 'Cash File', style: { color: '#fff'} }}
+        rightComponent={{ icon: 'home', color: '#fff' }}
+      />
+      <Text>Our app is ready to start with your code</Text>
+    </ThemeProvider>
     </SafeAreaProvider>
   ) 
 }
+
 const theme = {
-    Button: {
-      raised: true,
-      color: 'auto',
-      titleStyle:{          
-          fontSize:30,
-      },
-      Input:{
-          color:'red',
-      }
-    },
-  };
+  Header:{
+    leftComponent:{size:30},
+    centerComponent:{
+      style:{fontSize:26}
+    }
+    ,
+    rightComponent:{size:30}
+  }
+  ,
+  Button: {raised: true},
+  Text:{
+    style:{fontSize:22}
+  }
+};
 ```
 
 5. Run your app and see if it's ok
