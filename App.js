@@ -1,6 +1,8 @@
 import React from 'react';
 import {ThemeProvider, Header,  Text} from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {Signup} from './src/screens/screens';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function App() {
   return(
@@ -13,6 +15,7 @@ export default function App() {
         rightComponent={{ icon: 'home', color: '#fff' }}
       />
       <Text>Our app is ready to start with your code</Text>
+      <Signup/>
     </ThemeProvider>
     </SafeAreaProvider>
   ) 

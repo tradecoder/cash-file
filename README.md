@@ -134,7 +134,7 @@ const firebaseConfig = {
 ```
 7. Then paste/replace the code to the `config.js` for the `const firebaseConfig={}`
 
-## Create components
+## Create Screen components
 1. Create a folder named `screens` inside the `src` folder
 2. Create a file named `signup.js` inside the `screens` folder
 3. Add the below code to `signup.js`
