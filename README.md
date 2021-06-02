@@ -85,7 +85,7 @@ const theme = {
 };
 ```
 
-5. Run your app and see if it's ok
+5. Run your app and see if it's ok. You must have installed latest android emulator (Android Virtual Device- AVD) on your system. If you don't have, see the instruction [here]("#")
 ```javascript
 npm run android
 ```
