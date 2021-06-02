@@ -2,7 +2,7 @@ import React from 'react';
 import {ThemeProvider, Header,  Text} from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {Signup} from './src/screens/screens';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 export default function App() {
   return(
@@ -14,8 +14,10 @@ export default function App() {
         centerComponent={{ text: 'Cash File', style: { color: '#fff'} }}
         rightComponent={{ icon: 'home', color: '#fff' }}
       />
-      <Text>Our app is ready to start with your code</Text>
-      <Signup/>
+      <KeyboardAwareScrollView>
+        <Text>Our app is ready to start with your code</Text>
+        <Signup/>
+      </KeyboardAwareScrollView>
     </ThemeProvider>
     </SafeAreaProvider>
   ) 

@@ -36,25 +36,35 @@ npm install react-native-safe-area-context
 ```node
 react-native link react-native-safe-area-context
 ```
+6. Install Keyboard Aware Scrollview. This will help to display the input field up to the keyboard when typing 
+```node
+npm install react-native-keyboard-aware-scrollview
+```
 
-6. Now replace all your codes in `App.js` with the following codes for this time only
+7. Now replace all your codes in `App.js` with the following codes for this time only
 
 ```javascript
 import React from 'react';
 import {ThemeProvider, Header,  Text} from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+// we will keep our header still but scroll the body only if necessary 
+// so, we will add KeyboardAwareScrollView outside the Header
+// to make it available for all components/screens we will add it only on App.js file
+// which will contain/render all other screens. Hence, we do not need to add it on every screen.
 export default function App() {
   return(
     <SafeAreaProvider>
-      <ThemeProvider theme={theme}> 
+      <ThemeProvider theme={theme}>
       <Header
         placement="left"
         leftComponent={{ icon: 'menu', color: '#fff'}}
         centerComponent={{ text: 'Cash File', style: { color: '#fff'} }}
         rightComponent={{ icon: 'home', color: '#fff' }}
       />
-      <Text>Our app is ready to start with your code</Text>
+      <KeyboardAwareScrollView>
+        <Text>Our app is ready to start with your code</Text>
+      </KeyboardAwareScrollView>
     </ThemeProvider>
     </SafeAreaProvider>
   ) 

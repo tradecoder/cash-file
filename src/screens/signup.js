@@ -58,6 +58,6 @@ export default function Signup({nav}){
           <Text style={{color:"blue"}}> Login here</Text>
         </TouchableOpacity>                
       </Text>      
-    </ThemeProvider>    
+    </ThemeProvider>  
   )
 }
