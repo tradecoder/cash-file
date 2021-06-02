@@ -9,18 +9,22 @@ export default function Signup({nav}){
   const [firstName, setFirstName]= useState("");
   const [lastName, setLastName] =  useState("");
   const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   function onChangeFirstName(e){
-    setFirstName(e.target.value)
+    setFirstName(e)
   }
   function onChangeLastName(e){
-    setLastName(e.target.value)
+    setLastName(e)
   }
   function onChangeEmail(e){
-    setEmail(e.target.value)
+    setEmail(e)
+  }
+  function onChangeMobile(e){
+    setMobile(e)
   }
   function onChangePassword(e){
-    setPassword(e.target.value)
+    setPassword(e)
   }
 
   function onPressSignup(e){
@@ -28,17 +32,15 @@ export default function Signup({nav}){
     .createUserWithEmailAndPassword(email, password)
     .then(response=>{
       const uid = response.user.uid;
-      const data = {firstName, lastName, email, password};
+      const data = {_id:uid, firstName, lastName, email, mobile};
 
-      const ref= firebase.firestore().collection('users');
-      ref.doc(uid)
+      const usersRef= firebase.firestore().collection('users');
+      usersRef.doc(uid)
       .set(data)
-      .then(()=>{
-        nav.navigate('Home', {user:data})
-      })
+      .then(()=>alert("success"))
       .catch(err=>alert(err))
-
     })
+    .catch(err=>alert(err))
   }
   
   return(
@@ -46,9 +48,10 @@ export default function Signup({nav}){
       <Text h2>Please Signup</Text>
       <Input placeholder='First name' onChangeText={onChangeFirstName} />
       <Input placeholder='Last name' onChangeText={onChangeLastName} />
-      <Input placeholder='Email Address' onChangeText={onChangeEmail} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
+      <Input placeholder='Email address' onChangeText={onChangeEmail} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
+      <Input placeholder='Mobile number' onChangeText={onChangeMobile} leftIcon={{ type: 'font-awesome', name:'phone' }}/>
       <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} leftIcon={{ type: 'font-awesome', name:'lock'}}/>  
-      <Button title="Submit"/>
+      <Button title="Signup" onPress={onPressSignup}/>
       <Text>
         <Text> Have an account?</Text>
         <TouchableOpacity onPress={()=>Linking.openURL("https://google.com/")}>
