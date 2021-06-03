@@ -12,10 +12,10 @@ export default function Signup({nav}){
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   function onChangeFirstName(e){
-    setFirstName(e)
+    setFirstName(e.replace(/[^A-Za-z]/g, ''))
   }
   function onChangeLastName(e){
-    setLastName(e)
+    setLastName(e.replace(/[^A-Za-z]/g, ''))
   }
   function onChangeEmail(e){
     setEmail(e)
@@ -46,8 +46,8 @@ export default function Signup({nav}){
   return(
     <ThemeProvider>
       <Text h2>Please Signup</Text>
-      <Input placeholder='First name' onChangeText={onChangeFirstName} />
-      <Input placeholder='Last name' onChangeText={onChangeLastName} />
+      <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
+      <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
       <Input placeholder='Email address' onChangeText={onChangeEmail} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
       <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} leftIcon={{ type: 'font-awesome', name:'phone' }}/>
       <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} leftIcon={{ type: 'font-awesome', name:'lock'}}/>  
