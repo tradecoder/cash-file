@@ -20,8 +20,8 @@ export default function Signup({nav}){
   function onChangeEmail(e){
     setEmail(e)
   }
-  function onChangeMobile(e){
-    setMobile(e)
+  function onChangeMobile(e){    
+    setMobile(e.replace(/[^0-9]/g, ''))    
   }
   function onChangePassword(e){
     setPassword(e)
@@ -49,7 +49,7 @@ export default function Signup({nav}){
       <Input placeholder='First name' onChangeText={onChangeFirstName} />
       <Input placeholder='Last name' onChangeText={onChangeLastName} />
       <Input placeholder='Email address' onChangeText={onChangeEmail} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
-      <Input placeholder='Mobile number' onChangeText={onChangeMobile} leftIcon={{ type: 'font-awesome', name:'phone' }}/>
+      <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} leftIcon={{ type: 'font-awesome', name:'phone' }}/>
       <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} leftIcon={{ type: 'font-awesome', name:'lock'}}/>  
       <Button title="Signup" onPress={onPressSignup}/>
       <Text>
