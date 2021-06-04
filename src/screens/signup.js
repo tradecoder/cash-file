@@ -27,6 +27,24 @@ export default function Signup({nav}){
     setPassword(e)
   }
 
+  function userDataValidation(){
+    let errorList = [];
+
+    if(mobile.length !==11){
+      errorList.push("Invalid mobile number")
+    } 
+    if(firstName.length<2){
+      errorList.push("Invalid first name")
+    } 
+    if(lastName.length<2){
+      errorList.push("Invalid last name")
+    }
+    if(password.lenth<8){
+      errorList.push("Use a strong password")
+    }
+    return errorList.map(e=>(<Text>{e}</Text>))
+  }
+
   function onPressSignup(e){
     firebase.auth()
     .createUserWithEmailAndPassword(email, password)
