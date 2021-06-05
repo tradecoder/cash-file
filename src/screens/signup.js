@@ -14,46 +14,55 @@ export default function Signup({nav}){
   const [errorList, setErrorList] =  useState([]);
 
   function onChangeFirstName(e){
-    setFirstName(e.replace(/[^A-Za-z]/g, ''));
-    if(firstName.length<2){
-      setErrorList([...errorList, "Invalid first name"])
-    }
+    setFirstName(e.replace(/[^A-Za-z]/g, ''));    
   }
   function onChangeLastName(e){
-    setLastName(e.replace(/[^A-Za-z]/g, ''));
-    if(lastName.length<2){
-      setErrorList([...errorList, "Invalid last name"])
-    }
+    setLastName(e.replace(/[^A-Za-z]/g, ''));   
   }
   function onChangeEmail(e){
-    setEmail(e);
-    const gmailRegex = /.....@gmail.com/;
-    let mailValid = gmailRegex.test(email);
-    if(!mailValid){
-      setErrorList([...errorList, "Invalid gmail address"])
-    }
+    setEmail(e);   
   }
   function onChangeMobile(e){    
-    setMobile(e.replace(/[^0-9]/g, ''));
-    if(mobile.length !==11){
-      setErrorList([...errorList, "Invalid mobile number"])
-    }  
+    setMobile(e.replace(/[^0-9]/g, ''));     
   }
   function onChangePassword(e){
     setPassword(e);     
-    if(password.lenth<8){
-      setErrorList([...errorList, "Use longer than 8 char password"])
+  }
+  function userDataValidation(){
+
+    let invalidData =[];
+    if(firstName.length<2){
+      invalidData.push("Invalid first name")
     }
+    if(lastName.length<2){
+      invalidData.push("Invalid last name")
+    }
+
+    const gmailRegex = /.....@gmail.com/;
+    let mailValid = gmailRegex.test(email);
+    if(!mailValid){
+      invalidData.push("Invalid gmail address")
+    }
+    if(mobile.length !==11){
+      invalidData.push("Invalid mobile number")
+    } 
+    if(password.length<8){
+      invalidData.push("Use longer than 8 char password")
+    }
+
+    setErrorList(invalidData);
+
   }
 
   function userDataCheckPoint(){  
-    return (errorList.map(e=>{
-      return(<Text>{e}</Text>)
+    return (errorList.map((e,i)=>{
+      return(<Text style={{color:"red"}}>{i+1}. {e}.{"\n"}</Text>)
     }))
   }
 
-  function onPressSignup(e){    
-    if(errorList.length !==0 || errorList[0] !==""){
+  function onPressSignup(e){
+    userDataValidation();
+    if(errorList.length !=null){
     firebase.auth()
     .createUserWithEmailAndPassword(email, password)
     .then(response=>{
