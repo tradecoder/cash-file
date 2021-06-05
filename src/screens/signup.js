@@ -86,7 +86,7 @@ export default function Signup({nav}){
       <Text>{userDataCheckPoint()}</Text>
       <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
       <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
-      <Input placeholder='Email address' onChangeText={onChangeEmail} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
+      <Input placeholder='Gmail address' onChangeText={onChangeEmail} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
       <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} leftIcon={{ type: 'font-awesome', name:'phone' }}/>
       <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} leftIcon={{ type: 'font-awesome', name:'lock'}}/>  
       <Button title="Signup" onPress={onPressSignup}/>
