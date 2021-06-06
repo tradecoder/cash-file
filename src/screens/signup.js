@@ -11,7 +11,8 @@ export default function Signup({nav}){
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
-  const [errorList, setErrorList] =  useState([]);  
+  const [errorList, setErrorList] =  useState([]);
+  const [preventFirebase, setPreventFirebase] = useState(true);
 
   function onChangeFirstName(e){
     setFirstName(e.replace(/[^A-Za-z]/g, ''));
@@ -35,45 +36,52 @@ export default function Signup({nav}){
     let invalidData =[];
     if(firstName.length<2){
       invalidData.push("Invalid first name")
+      setPreventFirebase(true)     
     }
     if(lastName.length<2){
-      invalidData.push("Invalid last name")
+      invalidData.push("Invalid last name")     
+      setPreventFirebase(true)
     }
 
     const gmailRegex = /.....@gmail.com/;
     const mailValid = gmailRegex.test(email);
     if(!mailValid){
-      invalidData.push("Invalid gmail address")
+      invalidData.push("Invalid gmail address")      
+      setPreventFirebase(true)
     }
 
     const mobileRegex = /01[3|4|5|6|7|8|9]......../;
     const mobileValid = mobileRegex.test(mobile);
     if(!mobileValid || mobile.length !==11){
-      invalidData.push("Invalid mobile number")
+      invalidData.push("Invalid mobile number")     
+      setPreventFirebase(true)
     }
     
     const hasCapital = (/[A-Z]/).test(password);
     const hasSmall = (/[a-z]/).test(password);
     const hasNumber = (/[0-9]/).test(password);
     if(password.length<8 || !hasCapital || !hasSmall || !hasNumber ){
-      invalidData.push("Use password longer than 8, combining capital and small letters and numbers")
+      invalidData.push("Use password longer than 8, combining capital and small letters and numbers")      
+      setPreventFirebase(true)
     }
-
     setErrorList(invalidData);
-
+    if(invalidData.length == 0){
+      setPreventFirebase(false);
+    }
   }
 
   function userDataCheckPoint(){  
     return (errorList.map((e,i)=>{
-      return(<Text style={{color:"red"}}>{i+1}. {e}.{"\n"}</Text>)
+      return(<Text key={i} style={{color:"red"}}>{i+1}. {e}.{"\n"}</Text>)
     }))
-  }
+  } 
 
   function onPressSignup(e){
     userDataValidation();
-    
-    if(errorList.length <1){ 
-    firebase.auth()
+    if(firstName!="" || lastName !="" || mobile !="" || email !="" || password !="" && preventFirebase){
+      alert("Failed! Please provide correct information.")
+    } else{
+      firebase.auth()
     .createUserWithEmailAndPassword(email, password)
     .then(response=>{
       const uid = response.user.uid;
@@ -86,11 +94,9 @@ export default function Signup({nav}){
       .catch(err=>alert(err))
     })
     .catch(err=>alert(err))
-  }else { 
-    return alert("Failed! Please provide correct information.")  
-  }
-  
-} 
+    }
+  } 
+
   return(
     <ThemeProvider>
       <Text h2>Please Signup</Text>
