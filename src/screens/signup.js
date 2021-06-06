@@ -78,7 +78,9 @@ export default function Signup({nav}){
 
   function onPressSignup(e){
     userDataValidation();
-    if(firstName!="" || lastName !="" || mobile !="" || email !="" || password !="" && preventFirebase){
+    if(firstName!="" || lastName !="" || mobile !="" || email !="" || password !=""){
+      
+    if(preventFirebase){
       alert("Failed! Please provide correct information.")
     } else{
       firebase.auth()
@@ -94,6 +96,10 @@ export default function Signup({nav}){
       .catch(err=>alert(err))
     })
     .catch(err=>alert(err))
+    }
+
+    }else{
+      alert("Please provide all the information. ")
     }
   } 
 
