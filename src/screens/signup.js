@@ -11,22 +11,22 @@ export default function Signup({nav}){
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
-  const [errorList, setErrorList] =  useState([]);
+  const [errorList, setErrorList] =  useState([]);  
 
   function onChangeFirstName(e){
-    setFirstName(e.replace(/[^A-Za-z]/g, ''));    
-  }
+    setFirstName(e.replace(/[^A-Za-z]/g, ''));
+   }
   function onChangeLastName(e){
-    setLastName(e.replace(/[^A-Za-z]/g, ''));   
+    setLastName(e.replace(/[^A-Za-z]/g, '')); 
   }
   function onChangeEmail(e){
     setEmail(e);   
   }
   function onChangeMobile(e){    
-    setMobile(e.replace(/[^0-9]/g, ''));     
+    setMobile(e.replace(/[^0-9]/g, ''));  
   }
   function onChangePassword(e){
-    setPassword(e);     
+    setPassword(e);
   }
 
   // validate user input data
@@ -56,7 +56,7 @@ export default function Signup({nav}){
     const hasSmall = (/[a-z]/).test(password);
     const hasNumber = (/[0-9]/).test(password);
     if(password.length<8 || !hasCapital || !hasSmall || !hasNumber ){
-      invalidData.push("Use longer than 8, combining capital and small letters and numbers")
+      invalidData.push("Use password longer than 8, combining capital and small letters and numbers")
     }
 
     setErrorList(invalidData);
@@ -71,7 +71,8 @@ export default function Signup({nav}){
 
   function onPressSignup(e){
     userDataValidation();
-    if(errorList.length !=null){
+    
+    if(errorList.length <1){ 
     firebase.auth()
     .createUserWithEmailAndPassword(email, password)
     .then(response=>{
@@ -88,6 +89,7 @@ export default function Signup({nav}){
   }else { 
     return alert("Failed! Please provide correct information.")  
   }
+  
 } 
   return(
     <ThemeProvider>
