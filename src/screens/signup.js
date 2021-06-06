@@ -28,6 +28,8 @@ export default function Signup({nav}){
   function onChangePassword(e){
     setPassword(e);     
   }
+
+  // validate user input data
   function userDataValidation(){
 
     let invalidData =[];
@@ -39,15 +41,22 @@ export default function Signup({nav}){
     }
 
     const gmailRegex = /.....@gmail.com/;
-    let mailValid = gmailRegex.test(email);
+    const mailValid = gmailRegex.test(email);
     if(!mailValid){
       invalidData.push("Invalid gmail address")
     }
-    if(mobile.length !==11){
+
+    const mobileRegex = /01[3|4|5|6|7|8|9]......../;
+    const mobileValid = mobileRegex.test(mobile);
+    if(!mobileValid || mobile.length !==11){
       invalidData.push("Invalid mobile number")
-    } 
-    if(password.length<8){
-      invalidData.push("Use longer than 8 char password")
+    }
+    
+    const hasCapital = (/[A-Z]/).test(password);
+    const hasSmall = (/[a-z]/).test(password);
+    const hasNumber = (/[0-9]/).test(password);
+    if(password.length<8 || !hasCapital || !hasSmall || !hasNumber ){
+      invalidData.push("Use longer than 8, combining capital and small letters and numbers")
     }
 
     setErrorList(invalidData);
