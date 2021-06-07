@@ -21,7 +21,11 @@ export default function Signup({nav}){
     setLastName(e.replace(/[^A-Za-z]/g, '')); 
   }
   function onChangeEmail(e){
-    setEmail(e);   
+    const gmailRegex = /.....@gmail.com/;
+    const mailValid = gmailRegex.test(email);
+    if(mailValid){
+      setEmail(e);
+    }    
   }
   function onChangeMobile(e){    
     setMobile(e.replace(/[^0-9]/g, ''));  
