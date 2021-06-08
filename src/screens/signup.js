@@ -12,8 +12,7 @@ export default function Signup({nav}){
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [errorList, setErrorList] =  useState([]);
-  const [preventFirebase, setPreventFirebase] = useState(true);
-
+  
   function onChangeFirstName(e){
     setFirstName(e.replace(/[^A-Za-z]/g, ''));
    }
@@ -21,11 +20,7 @@ export default function Signup({nav}){
     setLastName(e.replace(/[^A-Za-z]/g, '')); 
   }
   function onChangeEmail(e){
-    const gmailRegex = /.....@gmail.com/;
-    const mailValid = gmailRegex.test(email);
-    if(mailValid){
-      setEmail(e);
-    }    
+    setEmail(e)
   }
   function onChangeMobile(e){    
     setMobile(e.replace(/[^0-9]/g, ''));  
@@ -39,39 +34,31 @@ export default function Signup({nav}){
 
     let invalidData =[];
     if(firstName.length<2){
-      invalidData.push("Invalid first name")
-      setPreventFirebase(true)     
+      invalidData.push("Invalid first name")     
     }
     if(lastName.length<2){
-      invalidData.push("Invalid last name")     
-      setPreventFirebase(true)
+      invalidData.push("Invalid last name")  
     }
 
     const gmailRegex = /.....@gmail.com/;
     const mailValid = gmailRegex.test(email);
     if(!mailValid){
-      invalidData.push("Invalid gmail address")      
-      setPreventFirebase(true)
+      invalidData.push("Invalid gmail address") 
     }
 
     const mobileRegex = /01[3|4|5|6|7|8|9]......../;
     const mobileValid = mobileRegex.test(mobile);
     if(!mobileValid || mobile.length !==11){
-      invalidData.push("Invalid mobile number")     
-      setPreventFirebase(true)
+      invalidData.push("Invalid mobile number") 
     }
     
     const hasCapital = (/[A-Z]/).test(password);
     const hasSmall = (/[a-z]/).test(password);
     const hasNumber = (/[0-9]/).test(password);
     if(password.length<8 || !hasCapital || !hasSmall || !hasNumber ){
-      invalidData.push("Use password longer than 8, combining capital and small letters and numbers")      
-      setPreventFirebase(true)
+      invalidData.push("Use password longer than 8, combining capital and small letters and numbers")    
     }
     setErrorList(invalidData);
-    if(invalidData.length == 0){
-      setPreventFirebase(false);
-    }
   }
 
   function userDataCheckPoint(){  
@@ -80,31 +67,35 @@ export default function Signup({nav}){
     }))
   } 
 
-  function onPressSignup(e){
+  function onPressSignup(e){    
     userDataValidation();
-    if(firstName!="" || lastName !="" || mobile !="" || email !="" || password !=""){
+
+    if(firstName && lastName && email && mobile && password){
+      if(firstName.length>1 && lastName.length>1 
+        && password.length>7 && (/[A-Z]/.test(password)) && (/[a-z]/.test(password)) && (/[0-9]/.test(password)) 
+        && mobile.length===11 && (/.....@gmail.com/.test(email))){        
+          firebase.auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then(response=>{
+            const uid = response.user.uid;
+            const data = {_id:uid, firstName, lastName, email, mobile};
       
-    if(preventFirebase){
-      alert("Failed! Please provide correct information.")
+            const usersRef= firebase.firestore().collection('users');
+            usersRef.doc(uid)
+            .set(data)
+            .then(()=>alert("success"))
+            .catch(()=>alert("System Error! Please try again later."))
+          })
+          .catch(()=>alert("Could not connect to server! Please try again later"))
+      }else{
+        alert("Please provide correct information")
+      }
+
     } else{
-      firebase.auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(response=>{
-      const uid = response.user.uid;
-      const data = {_id:uid, firstName, lastName, email, mobile};
-
-      const usersRef= firebase.firestore().collection('users');
-      usersRef.doc(uid)
-      .set(data)
-      .then(()=>alert("success"))
-      .catch(err=>alert(err))
-    })
-    .catch(err=>alert(err))
+      alert("Please provide all the information.")
     }
-
-    }else{
-      alert("Please provide all the information. ")
-    }
+  
+    
   } 
 
   return(
