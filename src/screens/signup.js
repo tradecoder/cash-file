@@ -26,7 +26,17 @@ export default function Signup({nav}){
       return false;
     }
     }
+
+    // Check if all data is valid
+    const isDataValid = ()=>{
+      if(validFirstName && validLastName && validEmail && validMobile && validPassword()){
+        return true;
+      } else {
+        return false
+      }
+    }
   
+    // On change input event handlers 
   function onChangeFirstName(e){
     setFirstName(e.replace(/[^A-Za-z]/g, ''));
    }
@@ -43,7 +53,7 @@ export default function Signup({nav}){
     setPassword(e);
   }
 
-  // check invalid input data list
+  // check invalid input data and make a list of them
   function inputDataCheckPoint(){
 
     let invalidData =[];
@@ -66,17 +76,25 @@ export default function Signup({nav}){
     setErrorList(invalidData);
   }
 
+  // Show list of invaid input data if any
   function showInvalidDataList(){  
     return (errorList.map((e,i)=>{
       return(<Text key={i} style={{color:"red"}}>{i+1}. {e}.{"\n"}</Text>)
     }))
   } 
 
+  // Send data to firebase 
+  // if all information is given
+  // if not send error alert
+  // with invalid input data list
+
   function onPressSignup(){
+    
+    //check and send input error if any
     inputDataCheckPoint();
 
-    if(validFirstName && validLastName && validEmail && validMobile && validPassword()){
-          
+    // send data to firebase if everything is ok
+    if(isDataValid()){          
           firebase.auth()
           .createUserWithEmailAndPassword(email, password)
           .then(response=>{
