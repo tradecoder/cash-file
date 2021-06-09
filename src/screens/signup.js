@@ -12,6 +12,20 @@ export default function Signup({nav}){
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [errorList, setErrorList] =  useState([]);
+  const validFirstName = /../.test(firstName);
+  const validLastName = /../.test(lastName);
+  const validEmail = /.....@gmail.com/.test(email);
+  const validMobile = /01[3-9]......../.test(mobile);
+  const validPassword =()=> {
+    if((/......../).test(password) 
+    && (/[A-Z]/).test(password)
+    && (/[a-z]/).test(password)
+    && (/[0-9]/).test(password)){
+      return true;
+    } else{
+      return false;
+    }
+    }
   
   function onChangeFirstName(e){
     setFirstName(e.replace(/[^A-Za-z]/g, ''));
@@ -29,51 +43,40 @@ export default function Signup({nav}){
     setPassword(e);
   }
 
-  // validate user input data
-  function userDataValidation(){
+  // check invalid input data list
+  function inputDataCheckPoint(){
 
     let invalidData =[];
-    if(firstName.length<2){
+    if(!validFirstName){
       invalidData.push("Invalid first name")     
     }
-    if(lastName.length<2){
+    if(!validLastName){
       invalidData.push("Invalid last name")  
     }
-
-    const gmailRegex = /.....@gmail.com/;
-    const mailValid = gmailRegex.test(email);
-    if(!mailValid){
+    if(!validEmail){
       invalidData.push("Invalid gmail address") 
     }
 
-    const mobileRegex = /01[3|4|5|6|7|8|9]......../;
-    const mobileValid = mobileRegex.test(mobile);
-    if(!mobileValid || mobile.length !==11){
+    if(!validMobile){
       invalidData.push("Invalid mobile number") 
     }
-    
-    const hasCapital = (/[A-Z]/).test(password);
-    const hasSmall = (/[a-z]/).test(password);
-    const hasNumber = (/[0-9]/).test(password);
-    if(password.length<8 || !hasCapital || !hasSmall || !hasNumber ){
+    if(!validPassword()){
       invalidData.push("Use password longer than 8, combining capital and small letters and numbers")    
     }
     setErrorList(invalidData);
   }
 
-  function userDataCheckPoint(){  
+  function showInvalidDataList(){  
     return (errorList.map((e,i)=>{
       return(<Text key={i} style={{color:"red"}}>{i+1}. {e}.{"\n"}</Text>)
     }))
   } 
 
-  function onPressSignup(e){    
-    userDataValidation();
+  function onPressSignup(){
+    inputDataCheckPoint();
 
-    if(firstName && lastName && email && mobile && password){
-      if(firstName.length>1 && lastName.length>1 
-        && password.length>7 && (/[A-Z]/.test(password)) && (/[a-z]/.test(password)) && (/[0-9]/.test(password)) 
-        && mobile.length===11 && (/.....@gmail.com/.test(email))){        
+    if(validFirstName && validLastName && validEmail && validMobile && validPassword()){
+          
           firebase.auth()
           .createUserWithEmailAndPassword(email, password)
           .then(response=>{
@@ -87,21 +90,15 @@ export default function Signup({nav}){
             .catch(()=>alert("System Error! Please try again later."))
           })
           .catch(()=>alert("Could not connect to server! Please try again later"))
-      }else{
-        alert("Please provide correct information")
-      }
-
-    } else{
-      alert("Please provide all the information.")
-    }
-  
-    
+        }else{
+          alert("Please provide correct information!")
+        }
   } 
 
   return(
     <ThemeProvider>
       <Text h2>Please Signup</Text>
-      <Text>{userDataCheckPoint()}</Text>
+      <Text>{showInvalidDataList()}</Text>
       <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
       <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
       <Input placeholder='Gmail address' onChangeText={onChangeEmail} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
