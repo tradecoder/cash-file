@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {ThemeProvider, Text, Input, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {TouchableOpacity, Linking} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {firebase} from '../firebase/config';
 
 
@@ -84,7 +84,7 @@ export default function Signup({nav}){
   } 
 
   // Send data to firebase if all information is given
-  // if not send error alert and a list of invalid input
+  // if not, send error alert and a list of invalid input
 
   function onPressSignup(){
     
@@ -102,7 +102,10 @@ export default function Signup({nav}){
             const usersRef= firebase.firestore().collection('users');
             usersRef.doc(uid)
             .set(data)
-            .then(()=>alert("success"))
+            .then(()=>{
+              alert("success");
+              nav.navigate("Home", {user:data})
+            })
             .catch(()=>alert("System Error! Please try again later."))
           })
           .catch(()=>alert("Could not connect to server! Please try again later"))
@@ -123,7 +126,7 @@ export default function Signup({nav}){
       <Button title="Signup" onPress={onPressSignup}/>
       <Text>
         <Text> Have an account?</Text>
-        <TouchableOpacity onPress={()=>Linking.openURL("https://google.com/")}>
+        <TouchableOpacity onPress={()=>nav.navigate("Login")}>
           <Text style={{color:"blue"}}> Login here</Text>
         </TouchableOpacity>                
       </Text>      
