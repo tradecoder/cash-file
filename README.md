@@ -41,6 +41,20 @@ react-native link react-native-safe-area-context
 npm install react-native-keyboard-aware-scrollview
 ```
 
+## Install navigation and screen packages 
+```node
+npm install @react-navigation/native
+```
+```node
+npm install @react-navigation/stack
+```
+```node
+npm install react-native-screens
+```
+```node
+npm install react-native-gesture-handler
+```
+
 7. Now replace all your codes in `App.js` with the following codes for this time only
 
 ```javascript
@@ -48,6 +62,9 @@ import React from 'react';
 import {ThemeProvider, Header,  Text} from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
 // we will keep our header still but scroll the body only if necessary 
 // so, we will add KeyboardAwareScrollView outside the Header
 // to make it available for all components/screens we will add it only on App.js file
