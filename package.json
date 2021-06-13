@@ -10,6 +10,7 @@
   "dependencies": {
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
+    "base-64": "^1.0.0",
     "expo": "~41.0.1",
     "expo-status-bar": "~1.0.4",
     "firebase": "^8.2.3",
@@ -18,6 +19,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-elements": "^3.4.1",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.3.0",

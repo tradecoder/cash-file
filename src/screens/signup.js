@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import {ThemeProvider, Text, Input, Button} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {TouchableOpacity} from 'react-native';
 import {firebase} from '../firebase/config';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
-
-export default function Signup({nav}){
+export default function Signup({navigation}){
   const [firstName, setFirstName]= useState("");
   const [lastName, setLastName] =  useState("");
   const [email, setEmail] = useState("");
@@ -116,20 +115,23 @@ export default function Signup({nav}){
 
   return(
     <ThemeProvider>
-      <Text h2>Please Signup</Text>
-      <Text>{showInvalidDataList()}</Text>
-      <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
-      <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
-      <Input placeholder='Gmail address' onChangeText={onChangeEmail} maxLength={35} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
-      <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} leftIcon={{ type: 'font-awesome', name:'phone' }}/>
-      <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} leftIcon={{ type: 'font-awesome', name:'lock'}}/>  
-      <Button title="Signup" onPress={onPressSignup}/>
-      <Text>
-        <Text> Have an account?</Text>
-        <TouchableOpacity onPress={()=>nav.navigate("Login")}>
-          <Text style={{color:"blue"}}> Login here</Text>
-        </TouchableOpacity>                
-      </Text>      
+      <KeyboardAwareScrollView>
+        <Text h2>Please Signup</Text>
+        <Text>{showInvalidDataList()}</Text>
+        <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
+        <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
+        <Input placeholder='Gmail address' onChangeText={onChangeEmail} maxLength={35}/>
+        <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} />
+        <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true}/>  
+        <Button title="Signup" onPress={onPressSignup}/>
+     
+        <Text>
+          <Text> Have an account?</Text>
+          <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
+            <Text style={{color:"blue"}}> Login here</Text>
+          </TouchableOpacity>                
+        </Text>
+      </KeyboardAwareScrollView>
     </ThemeProvider>  
   )
 }
