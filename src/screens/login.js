@@ -3,6 +3,7 @@ import {ThemeProvider, Text, Input, Button} from 'react-native-elements';
 import {TouchableOpacity } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {firebase} from '../firebase/config';
 
 export default function Login({navigation}) {
     const [email, setEmail] = useState("");
@@ -28,14 +29,13 @@ export default function Login({navigation}) {
             const usersRef = firebase.firestore().collection("users");
             usersRef.doc(uid)
             .get()
-            .then((documents)=>{
-                if(!documents.exists){
+            .then(firebaseData=>{
+                if(!firebaseData.exists){
                     alert("No record found!");
                     return;
                 }
-                const user = documents.data();
-                navigation.navigate("Home", {user})
-
+                const user = firebaseData.data();
+                navigation.navigate("Home", {user});
             })
             .catch(err=>alert(err))
         })

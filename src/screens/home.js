@@ -2,8 +2,10 @@ import React from 'react';
 import { ThemeProvider, Text, Card } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import {firebase } from '../firebase/config';
 
-export default function Home() {
+export default function Home(props) {
+    const userId = props.userData._id;
     return (
         <ThemeProvider theme={theme}>
             <Text h4 style={{textAlign:"center"}}> Select what you want to do</Text>
