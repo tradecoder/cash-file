@@ -19,7 +19,7 @@ const [user, setUser] = useState(null)
         leftComponent={{ text: 'Cash File', style: { color: '#fff'} }}
         rightComponent={{ icon: 'home', color: '#fff' }}
       />
-      <Home />
+  
       <NavigationContainer>
         <Stack.Navigator>
           { user ? (

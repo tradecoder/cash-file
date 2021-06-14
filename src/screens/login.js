@@ -21,6 +21,25 @@ export default function Login({navigation}) {
     }
 
     function onPressLogin(){
+        firebase.auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(response=>{
+            const uid= response.user.uid;
+            const usersRef = firebase.firestore().collection("users");
+            usersRef.doc(uid)
+            .get()
+            .then((documents)=>{
+                if(!documents.exists){
+                    alert("No record found!");
+                    return;
+                }
+                const user = documents.data();
+                navigation.navigate("Home", {user})
+
+            })
+            .catch(err=>alert(err))
+        })
+        .catch(err=>alert(err))
 
     }
 
