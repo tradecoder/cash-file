@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { ThemeProvider, Text, Input, Button, Card, Tab } from 'react-native-elements';
-import { TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { ThemeProvider, Text, Card } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 export default function Home() {
-       return (
+    return (
         <ThemeProvider theme={theme}>
-            <Text> Select what you want to do</Text>
+            <Text h4 style={{textAlign:"center"}}> Select what you want to do</Text>
             <Grid>
                 <Row>
                     <Col>
