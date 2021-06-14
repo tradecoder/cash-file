@@ -16,8 +16,7 @@ const [user, setUser] = useState(null)
     <ThemeProvider theme={theme}>
     <Header
         placement="left"
-        leftComponent={{ icon: 'menu', color: '#fff'}}
-        centerComponent={{ text: 'Cash File', style: { color: '#fff'} }}
+        leftComponent={{ text: 'Cash File', style: { color: '#fff'} }}
         rightComponent={{ icon: 'home', color: '#fff' }}
       />
       <Home />
