@@ -4,7 +4,7 @@ import {TouchableOpacity} from 'react-native';
 import {firebase} from '../firebase/config';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
-export default function Signup({navigation}){
+export default function SignupScreen({navigation}){
   const [firstName, setFirstName]= useState("");
   const [lastName, setLastName] =  useState("");
   const [email, setEmail] = useState("");

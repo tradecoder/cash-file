@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {firebase } from '../firebase/config';
 
-export default function Home(props) {
+export default function HomeScreen(props) {
     const userId = props.userData._id;
     return (
         <ThemeProvider theme={theme}>
