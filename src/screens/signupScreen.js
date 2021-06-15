@@ -114,9 +114,9 @@ export default function SignupScreen({navigation}){
   } 
 
   return(
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <KeyboardAwareScrollView>
-        <Text h2>Please Signup</Text>
+        <Text h4>Please signup to continue</Text>
         <Text>{showInvalidDataList()}</Text>
         <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
         <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
@@ -126,12 +126,30 @@ export default function SignupScreen({navigation}){
         <Button title="Signup" onPress={onPressSignup}/>
      
         <Text>
-          <Text> Have an account?</Text>
-          <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
-            <Text style={{color:"blue"}}> Login here</Text>
+        <TouchableOpacity onPress={()=>navigation.navigate("Login")}>            
+            <Text style={{color:"blue"}}>Have an account? Login here</Text>
           </TouchableOpacity>                
         </Text>
       </KeyboardAwareScrollView>
     </ThemeProvider>  
   )
+}
+const theme = {
+    
+  Button:{
+      raised:true,
+      buttonStyle:{
+          height:60
+      },
+      titleStyle:{
+          fontSize:20
+      }  
+  },
+  Text:{
+    style:{
+      fontSize:20,
+      padding:10
+    }
+   
+  }
 }

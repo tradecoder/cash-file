@@ -2,10 +2,10 @@ import React from 'react';
 import { ThemeProvider, Text, Card } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import {firebase } from '../firebase/config';
 
-export default function HomeScreen(props) {
-    const userId = props.userData._id;
+
+export default function HomeScreen({navigation}) {
+ 
     return (
         <ThemeProvider theme={theme}>
             <Text h4 style={{textAlign:"center"}}> Select what you want to do</Text>
@@ -59,6 +59,13 @@ export default function HomeScreen(props) {
                     </Col>
                 </Row>
                 <Row>
+                    <Col>
+                        <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
+                            <Card>
+                                <Card.Title>Login</Card.Title>
+                            </Card>
+                        </TouchableOpacity>
+                    </Col>
                     <Col>
                         <TouchableOpacity>
                             <Card>

@@ -15,11 +15,7 @@ export default function LoginScreen({navigation}) {
 
     function onChangePassword(e){
         setPassword(e)
-    }
-
-    function onPressSingupLink(){
-        navigation.navigate("Signup")
-    }
+    }   
 
     function onPressLogin(){
         firebase.auth()
@@ -44,18 +40,38 @@ export default function LoginScreen({navigation}) {
     }
 
     return (
-        <ThemeProvider>
+        <ThemeProvider theme={theme}>
             <KeyboardAwareScrollView>
+                <Text h4>Please Login to continue</Text>
                 <Input placeholder='Gmail address' onChangeText={onChangeEmail} value={email} maxLength={35} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
                 <Input placeholder='Password' onChangeText={onChangePassword} value={password} secureTextEntry={true} leftIcon={{ type: 'font-awesome', name:'lock'}}/>  
                 <Button title="Login" onPress={onPressLogin}/>
-                <Text>
-                    <Text> Don't Have an account?</Text>
-                    <TouchableOpacity onPress={onPressSingupLink}>
-                        <Text style={{color:"blue"}}> Signup here</Text>
+                <Text>                   
+                    <TouchableOpacity onPress={()=>navigation.navigate("Signup")}>
+                        <Text style={{color:"blue"}}>Not registered? Signup here</Text>
                     </TouchableOpacity>                
                 </Text>
             </KeyboardAwareScrollView>
         </ThemeProvider>
     )
 }
+
+const theme = {
+    
+    Button:{
+        raised:true,
+        buttonStyle:{
+            height:60
+        },
+        titleStyle:{
+            fontSize:20
+        }     
+    },
+    Text:{
+      style:{
+        fontSize:20,
+        padding:10
+      }
+     
+    }
+  }
