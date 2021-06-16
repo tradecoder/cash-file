@@ -116,7 +116,9 @@ export default function SignupScreen({ navigation }) {
   return (
     <ThemeProvider theme={theme}>
       <KeyboardAwareScrollView>
-        <Text>{errorList.length ? showInvalidDataList() : <Text h4>Please signup to continue</Text>}</Text>
+        <Card>
+        <Text>{errorList.length ? showInvalidDataList() : <Text h4>Signup to continue</Text>}</Text>
+        </Card>
         <Card>
           <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
           <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
@@ -125,13 +127,11 @@ export default function SignupScreen({ navigation }) {
           <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} />
           <Button title="Signup" onPress={onPressSignup} />
         </Card>
-        <Card>
           <Text>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text style={{ color: "blue" }}>Have an account? Login here</Text>
             </TouchableOpacity>
           </Text>
-        </Card>
       </KeyboardAwareScrollView>
     </ThemeProvider>
   )

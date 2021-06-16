@@ -44,7 +44,7 @@ export default function LoginScreen({ navigation }) {
         <ThemeProvider theme={theme}>
             <KeyboardAwareScrollView>
                 <Card>
-                    <Text h4>Please Login to continue</Text>
+                    <Text h4>Login to continue</Text>
                 </Card>
                 <Card>
                     <Input placeholder='Gmail address' onChangeText={onChangeEmail} value={email} maxLength={35} leftIcon={{ type: 'font-awesome', name: 'envelope' }} />
