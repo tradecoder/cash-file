@@ -116,15 +116,16 @@ export default function SignupScreen({ navigation }) {
   return (
     <ThemeProvider theme={theme}>
       <KeyboardAwareScrollView>
-        <Text h4>Please signup to continue</Text>
+        <Text>{errorList.length ? showInvalidDataList() : <Text h4>Please signup to continue</Text>}</Text>
         <Card>
-          <Text>{showInvalidDataList()}</Text>
           <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
           <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
           <Input placeholder='Gmail address' onChangeText={onChangeEmail} maxLength={35} />
           <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} />
           <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} />
           <Button title="Signup" onPress={onPressSignup} />
+        </Card>
+        <Card>
           <Text>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text style={{ color: "blue" }}>Have an account? Login here</Text>
