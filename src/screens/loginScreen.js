@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {ThemeProvider, Text, Input, Button} from 'react-native-elements';
+import {ThemeProvider, Text, Input, Button, Card} from 'react-native-elements';
 import {TouchableOpacity } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -43,15 +43,19 @@ export default function LoginScreen({navigation}) {
     return (
         <ThemeProvider theme={theme}>
             <KeyboardAwareScrollView>
+                <Card>
                 <Text h4>Please Login to continue</Text>
                 <Input placeholder='Gmail address' onChangeText={onChangeEmail} value={email} maxLength={35} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
                 <Input placeholder='Password' onChangeText={onChangePassword} value={password} secureTextEntry={true} leftIcon={{ type: 'font-awesome', name:'lock'}}/>  
                 <Button title="Login" onPress={onPressLogin}/>
+                </Card>
+                <Card>
                 <Text>                   
                     <TouchableOpacity onPress={()=>navigation.navigate("Signup")}>
                         <Text style={{color:"blue"}}>Not registered? Signup here</Text>
                     </TouchableOpacity>                
                 </Text>
+                </Card>
             </KeyboardAwareScrollView>
         </ThemeProvider>
     )
