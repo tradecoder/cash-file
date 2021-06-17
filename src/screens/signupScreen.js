@@ -103,7 +103,7 @@ export default function SignupScreen({ navigation }) {
             .set(data)
             .then(() => {
               alert("success");
-              nav.navigate("Home", { user: data })
+              navigation.navigate("Home", { user: data })
             })
             .catch(() => alert("System Error! Please try again later."))
         })
