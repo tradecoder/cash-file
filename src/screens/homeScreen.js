@@ -25,23 +25,7 @@ export default function HomeScreen({navigation}) {
                             </Card>
                         </TouchableOpacity>
                     </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <TouchableOpacity>
-                            <Card>
-                                <Card.Title>Buy a product</Card.Title>
-                            </Card>
-                        </TouchableOpacity>
-                    </Col>
-                    <Col>
-                        <TouchableOpacity>
-                            <Card>
-                                <Card.Title>Sell a product</Card.Title>
-                            </Card>
-                        </TouchableOpacity>
-                    </Col>
-                </Row>
+                </Row>         
                 <Row>
                     <Col>
                         <TouchableOpacity>
