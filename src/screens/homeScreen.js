@@ -10,7 +10,7 @@ export default function HomeScreen({navigation}) {
         <ThemeProvider theme={theme}>
             <Text h4 style={{textAlign:"center"}}> Select what you want to do</Text>
             <Grid>
-                <Row>
+                <Row size={20}>
                     <Col>
                         <TouchableOpacity>
                             <Card>                                                 
@@ -28,7 +28,7 @@ export default function HomeScreen({navigation}) {
                         </TouchableOpacity>
                     </Col>
                 </Row>         
-                <Row>
+                <Row size={50}>
                     <Col>
                         <TouchableOpacity>
                             <Card>
@@ -46,7 +46,7 @@ export default function HomeScreen({navigation}) {
                         </TouchableOpacity>
                     </Col>
                 </Row>
-                <Row>
+                <Row size={15}>
                     <Col>
                         <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
                             <Card>
