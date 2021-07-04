@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider, Text, Card, Icon } from 'react-native-elements';
+import { ThemeProvider, Text, Card, Icon, Button } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -14,7 +14,7 @@ export default function HomeScreen({navigation}) {
                     <Col>
                         <TouchableOpacity>
                             <Card>                                                 
-                                <Icon reverse name="plus" type="font-awesome" color="green" />
+                                <Button icon={<Icon reverse name="plus" type="font-awesome" color="green"/>} ></Button>
                                 <Card.Title>Add money</Card.Title>           
                             </Card>
                         </TouchableOpacity>
@@ -22,7 +22,7 @@ export default function HomeScreen({navigation}) {
                     <Col>
                         <TouchableOpacity>
                             <Card>
-                                <Icon reverse name="paper-plane" type="font-awesome" color="blue"/>
+                                <Button icon={<Icon reverse name="paper-plane" type="font-awesome" color="blue"/>} ></Button>
                                 <Card.Title>Send money</Card.Title>
                             </Card>
                         </TouchableOpacity>
@@ -32,7 +32,7 @@ export default function HomeScreen({navigation}) {
                     <Col>
                         <TouchableOpacity>
                             <Card>
-                                <Icon reverse name="briefcase" type="font-awesome" color="black"/>
+                                <Button icon={<Icon reverse name="briefcase" type="font-awesome" color="black"/>} ></Button>
                                 <Card.Title>Receive loan</Card.Title>
                             </Card>
                         </TouchableOpacity>
@@ -40,7 +40,7 @@ export default function HomeScreen({navigation}) {
                     <Col>
                         <TouchableOpacity>
                             <Card>
-                                <Icon reverse name="cut" type="font-awesome" color="red"/>
+                                <Button icon={<Icon reverse name="cut" type="font-awesome" color="red"/>} ></Button>
                                 <Card.Title>Give loan</Card.Title>
                             </Card>
                         </TouchableOpacity>
@@ -69,12 +69,17 @@ export default function HomeScreen({navigation}) {
 const theme = {
     Card: {
         containerStyle: {
-            backgroundColor: "orange",            
+            backgroundColor: "orange",                
         } 
     },
     Icon:{
         iconStyle:{
-            color:"white"
+            color:"white",
+        }
+    },
+    Button:{
+        buttonStyle:{
+            backgroundColor:"orange"
         }
     }
 
