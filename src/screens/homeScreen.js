@@ -14,7 +14,7 @@ export default function HomeScreen({navigation}) {
                     <Col>
                         <TouchableOpacity>
                             <Card>                                                 
-                                <Icon reverse name="plus" type="font-awesome" color="blue" />
+                                <Icon reverse name="plus" type="font-awesome" color="green" />
                                 <Card.Title>Add money</Card.Title>           
                             </Card>
                         </TouchableOpacity>
@@ -22,7 +22,7 @@ export default function HomeScreen({navigation}) {
                     <Col>
                         <TouchableOpacity>
                             <Card>
-                                <Icon reverse name="paper-plane" type="font-awesome" color="red"/>
+                                <Icon reverse name="paper-plane" type="font-awesome" color="blue"/>
                                 <Card.Title>Send money</Card.Title>
                             </Card>
                         </TouchableOpacity>
@@ -32,7 +32,7 @@ export default function HomeScreen({navigation}) {
                     <Col>
                         <TouchableOpacity>
                             <Card>
-                                <Icon reverse name="briefcase" type="font-awesome" color="green"/>
+                                <Icon reverse name="briefcase" type="font-awesome" color="black"/>
                                 <Card.Title>Receive loan</Card.Title>
                             </Card>
                         </TouchableOpacity>
