@@ -6,8 +6,11 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 
 export default function AddMoneyScreen(){
     const [mobileAccount, setMobileAccount] = useState("");
-    const [amount, setAmount] =  useState(0);
+    const [amount, setAmount] =  useState();
     const [accountType, setAccountType] = useState("");
+    function onChangeAmount(e){
+        setAmount(e.replace(/[^0-9]/g,''))
+    }
     function onPressAddMoney(e){
         e.preventDefault();
 
@@ -17,16 +20,21 @@ export default function AddMoneyScreen(){
         <ThemeProvider>
             <Text h2>Add money</Text>
             <Input placeholder="Account Type / service name" value={accountType} onChangeText={(e)=>setAccountType(e)}/>
-            <Input placeholder="mobile account" value={mobileAccount} onChangeText={(e)=>setMobileAccount(e)}/>
-            <Input placeholder = "amount" value={amount} onChangeText={(e)=>setAmount(e)}/>
+            <Input placeholder="Mobile Account" value={mobileAccount} onChangeText={(e)=>setMobileAccount(e)}/>
+            <Input placeholder = "Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount}/>
             <Button title ="Add now" onPress={onPressAddMoney}/>
         </ThemeProvider>
     )
 }
 
 const theme = {
-    Button:{
-        raised:true
-    }
-
+    Button: {
+        raised: true,
+        buttonStyle: {
+          height: 60
+        },
+        titleStyle: {
+          fontSize: 30
+        }
+      }
 }
