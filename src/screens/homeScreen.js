@@ -57,6 +57,13 @@ export default function HomeScreen({navigation}) {
                         </TouchableOpacity>
                     </Col>
                     <Col>
+                        <TouchableOpacity>
+                            <Card>
+                                <Card.Title>Account</Card.Title>
+                            </Card>
+                        </TouchableOpacity>
+                    </Col>
+                    <Col>
                         <TouchableOpacity onPress={()=>alert("Please press your phone home button- then clear the screen!")}>
                             <Card>
                                 <Card.Title>Exit</Card.Title>
