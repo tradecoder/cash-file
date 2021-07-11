@@ -5,3 +5,4 @@ export {default as AddMoneyScreen} from './addMoneyScreen';
 export {default as SendMoneyScreen} from "./sendMoneyScreen";
 export {default as ReceiveLoanScreen} from "./receiveLoanScreen";
 export {default as GiveLoanScreen} from "./giveLoanScreen";
+export {default as AddAccountScreen} from "./addAccountScreen";

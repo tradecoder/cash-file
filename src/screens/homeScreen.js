@@ -57,7 +57,7 @@ export default function HomeScreen({navigation}) {
                         </TouchableOpacity>
                     </Col>
                     <Col>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>navigation.navigate("Account")}>
                             <Card>
                                 <Card.Title>Account</Card.Title>
                             </Card>
