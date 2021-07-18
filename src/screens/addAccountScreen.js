@@ -1,13 +1,29 @@
 import React, {useState} from 'react';
 import {ThemeProvider, Text, Input, Button } from 'react-native-elements';
+import { firebase } from '../firebase/config';
 
-export default function AddAccountScreen(){
+export default function AddAccountScreen(props){
     const [mobileAccount, setMobileAccount] = useState("");   
     const [accountType, setAccountType] = useState("");
+
+    const accountRef = firebase.firestore().collection(`${mobileAccount}-${accountType}`);
+    const uid = props.userData.id;
    
   
     function onPressAddAccount(e){
         e.preventDefault();
+        const accountData = {
+          mobileAccount,
+          accountType,
+          cashIn:[],
+          cashOut:[]
+        }
+
+        accountRef.add(accountData)
+        .then(doc=>{
+          console.log(doc);
+        })
+        .catch(err=>err)
 
     } 
     
