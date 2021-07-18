@@ -1,50 +1,51 @@
-import React, {useState} from 'react';
-import {ThemeProvider, Text, Input, Button } from 'react-native-elements';
+import React, { useState } from 'react';
+import { ThemeProvider, Text, Input, Button } from 'react-native-elements';
 import { firebase } from '../firebase/config';
 
-export default function AddAccountScreen(props){
-    const [mobileAccount, setMobileAccount] = useState("");   
-    const [accountType, setAccountType] = useState("");
+export default function AddAccountScreen(props) {
+  const [mobileAccount, setMobileAccount] = useState("");
+  const [accountType, setAccountType] = useState("");
 
-    const accountRef = firebase.firestore().collection(`${mobileAccount}-${accountType}`);
-    const uid = props.userData.id;
-   
-  
-    function onPressAddAccount(e){
-        e.preventDefault();
-        const accountData = {
-          mobileAccount,
-          accountType,
-          cashIn:[],
-          cashOut:[]
-        }
+  const accountRef = firebase.firestore().collection(`${mobileAccount}-${accountType}`);
+  const uid = props.userData.id;
 
-        accountRef.add(accountData)
-        .then(doc=>{
-          console.log(doc);
-        })
-        .catch(err=>err)
 
-    } 
-    
-    return(
-        <ThemeProvider>
-            <Text h2>Add an account</Text>
-            <Input placeholder="Account Type / service name" value={accountType} onChangeText={(e)=>setAccountType(e)}/>
-            <Input placeholder="Account/Mobile number" value={mobileAccount} onChangeText={(e)=>setMobileAccount(e)}/>                 
-            <Button title ="Add now" onPress={onPressAddAccount}/>           
-        </ThemeProvider>
-    )
+  function onPressAddAccount(e) {
+    e.preventDefault();
+    const accountData = {
+      uid,
+      mobileAccount,
+      accountType,
+      cashIn: [],
+      cashOut: []
+    }
+
+    accountRef.add(accountData)
+      .then(doc => {
+        console.log(doc);
+      })
+      .catch(err => er)
+
+  }
+
+  return (
+    <ThemeProvider>
+      <Text h2>Add an account</Text>
+      <Input placeholder="Account Type / service name" value={accountType} onChangeText={(e) => setAccountType(e)} />
+      <Input placeholder="Account/Mobile number" value={mobileAccount} onChangeText={(e) => setMobileAccount(e)} />
+      <Button title="Add now" onPress={onPressAddAccount} />
+    </ThemeProvider>
+  )
 }
 
 const theme = {
-    Button: {
-        raised: true,
-        buttonStyle: {
-          height: 60
-        },
-        titleStyle: {
-          fontSize: 30
-        }
-      }
+  Button: {
+    raised: true,
+    buttonStyle: {
+      height: 60
+    },
+    titleStyle: {
+      fontSize: 30
+    }
+  }
 }
