@@ -5,6 +5,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { firebase } from '../firebase/config';
 
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Setting a timer']);
+
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
