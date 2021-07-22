@@ -94,14 +94,15 @@ export default function SignupScreen({ navigation }) {
     if (isDataValid()) {
       firebase.auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(response => {
+        .then(response => {         
           const uid = response.user.uid;
           const data = { _id: uid, firstName, lastName, email, mobile };
+          console.log(data);
 
           const usersRef = firebase.firestore().collection('users');
           usersRef.doc(uid)
             .set(data)
-            .then(() => {
+            .then((e) => {
               alert("success");
               navigation.navigate("Home", { user: data })
             })
