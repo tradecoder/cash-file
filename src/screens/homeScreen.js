@@ -3,10 +3,11 @@ import { ThemeProvider, Text, Card, Icon, Button } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { firebase } from '../firebase/config';
-const uid = firebase.auth().currentUser.uid;
+
 
 
 export default function HomeScreen({navigation}) {  
+    const uid = firebase.auth().currentUser.uid;
     
   
     return (
@@ -51,16 +52,9 @@ export default function HomeScreen({navigation}) {
                 </Row>
                 <Row size={15}>
                     <Col>
-                        <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
-                            <Card>
-                                <Card.Title>Login</Card.Title>
-                            </Card>
-                        </TouchableOpacity>
-                    </Col>
-                    <Col>
                         <TouchableOpacity onPress={()=>navigation.navigate("Account")}>
                             <Card>
-                                <Card.Title>Account</Card.Title>
+                                <Card.Title>Setings</Card.Title>
                             </Card>
                         </TouchableOpacity>
                     </Col>

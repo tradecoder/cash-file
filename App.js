@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SignupScreen, LoginScreen, HomeScreen, AddMoneyScreen, SendMoneyScreen, ReceiveLoanScreen, GiveLoanScreen, AddAccountScreen } from './src/screens/screensLib';
 
+// ignore yellow error 'setting a timer ...'
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer']);
 

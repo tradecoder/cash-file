@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {ThemeProvider, Text, Input, Button } from 'react-native-elements';
 import { firebase } from '../firebase/config';
-const uid = firebase.auth().currentUser.uid;
+
 
 export default function AddMoneyScreen(){
+    const uid = firebase.auth().currentUser.uid;
+    
     const [mobileAccount, setMobileAccount] = useState("");
     const [amount, setAmount] =  useState();
     const [accountType, setAccountType] = useState("");
