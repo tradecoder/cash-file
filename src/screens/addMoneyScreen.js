@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {ThemeProvider, Text, Input, Button } from 'react-native-elements';
+import { firebase } from '../firebase/config';
+const userid = firebase.auth().currentUser.uid;
 
 export default function AddMoneyScreen(){
     const [mobileAccount, setMobileAccount] = useState("");
@@ -13,7 +15,7 @@ export default function AddMoneyScreen(){
         e.preventDefault();
 
     } 
-    
+
     return(
         <ThemeProvider>
             <Text h2>Add money</Text>

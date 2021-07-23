@@ -2,11 +2,12 @@ import React from 'react';
 import { ThemeProvider, Text, Card, Icon, Button } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import { firebase } from '../firebase/config';
+const userid = firebase.auth().currentUser.uid;
 
 
-
-export default function HomeScreen({navigation}) {
-
+export default function HomeScreen({navigation}) {  
+    
   
     return (
         <ThemeProvider theme={theme}>
