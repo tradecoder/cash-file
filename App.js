@@ -5,17 +5,23 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SignupScreen, LoginScreen, HomeScreen, AddMoneyScreen, SendMoneyScreen, ReceiveLoanScreen, GiveLoanScreen, AddAccountScreen } from './src/screens/screensLib';
 import { firebase } from './src/firebase/config';
 
-// ignore yellow error 'setting a timer ...'
+////////////////////////////////////////
+// ignore yellow error 'setting a timer'
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer']);
-
+/////////////////////////////////////////
 
 const Stack = createStackNavigator();
+
+
 
 export default function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
+  // if the device has ready-access to firebase because of previous successful login
+  // set the user to firebase uid, this will help to load the app directly the home & other action pages 
   useEffect(() => {
     const usersRef = firebase.firestore().collection('users');
     firebase.auth().onAuthStateChanged(user => {
@@ -36,6 +42,9 @@ export default function App() {
   }, []);
   
 
+
+  // if the user is logged in, display home screen with other action screens
+  // if the user is not logged in, display login screen with signup page navigation
   return (
     <NavigationContainer>
       <Stack.Navigator>
