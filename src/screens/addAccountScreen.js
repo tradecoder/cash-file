@@ -10,9 +10,10 @@ export default function AddAccountScreen(props) {
 
   const [mobileAccount, setMobileAccount] = useState("");
   const [accountType, setAccountType] = useState("");
-  const [accountList, setAccountList] = useState([0,5])
+  const [accountList, setAccountList] = useState([0,5]); // added temporary value
 
   const accountRef = firebase.firestore().collection('users').doc(uid).collection(`${mobileAccount}-${accountType}`);
+
   
  
   async function onPressAddAccount(e) {
@@ -22,19 +23,26 @@ export default function AddAccountScreen(props) {
       mobileAccount,
       accountType,
       cashIn: 0,
-      cashOut: 0
+      cashInFrom:"",
+      cashOut: 0,
+      cashOutTo:"",
+      accountName:`${mobileAccount}-${accountType}`,
+      refId:""
     };
 
-    // check if the collection has a
+
+    // check if the collection already exist
     const snapshot = await accountRef.get();
-    
-    if(snapshot.size>0){
+     if(mobileAccount.length <11 || accountType.length<4){
+      alert("Please provide required information")
+    } else if(snapshot.size>0){
       alert("Account already exist")
     } else{
-
       accountRef.add(accountData)
       .then(doc => {
+        accountRef.doc(doc.id).set({transactionId:doc.id}, {merge:true});
         alert(`Congratulations! ${mobileAccount}-${accountType} account registered successfully.`);
+        
       })
       .catch(err => err) 
     }
@@ -53,7 +61,7 @@ export default function AddAccountScreen(props) {
   
   return (
     <ThemeProvider>      
-      <Text h2>Add an account</Text>
+      <Text h4>Add an account</Text>
       <Input placeholder="Account Type / service name" value={accountType} onChangeText={(e) => setAccountType(e)} />
       <Input placeholder="Account/Mobile number" value={mobileAccount} onChangeText={(e) => setMobileAccount(e)} />
       <Button title="Add now" onPress={onPressAddAccount} />
