@@ -40,7 +40,7 @@ export default function AddAccountScreen(props) {
     } else{
       accountRef.add(accountData)
       .then(doc => {
-        accountRef.doc(doc.id).set({transactionId:doc.id}, {merge:true});
+        accountRef.doc(doc.id).set({refId:doc.id}, {merge:true});
         alert(`Congratulations! ${mobileAccount}-${accountType} account registered successfully.`);
         
       })
