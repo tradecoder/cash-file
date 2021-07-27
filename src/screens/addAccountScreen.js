@@ -13,6 +13,7 @@ export default function AddAccountScreen(props) {
   const [accountList, setAccountList] = useState([0,5]); // added temporary value
 
   const accountRef = firebase.firestore().collection('users').doc(uid).collection(`${mobileAccount}-${accountType}`);
+  const currentUserProfile = firebase.firestore().collection('users').doc(uid);
 
   
  
@@ -40,7 +41,13 @@ export default function AddAccountScreen(props) {
     } else{
       accountRef.add(accountData)
       .then(doc => {
+        // add doc id to the document as a field
         accountRef.doc(doc.id).set({refId:doc.id}, {merge:true});
+
+        // add every mobileAccount name created by the current user 
+        // in the accountList array field in the main user profile-document
+        currentUserProfile.set({accountList: firebase.firestore.FieldValue.arrayUnion(`${mobileAccount}-${accountType}`)}, {merge:true});
+
         alert(`Congratulations! ${mobileAccount}-${accountType} account registered successfully.`);
         
       })

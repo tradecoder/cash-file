@@ -11,11 +11,12 @@ export default function SignupScreen({ navigation }) {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [errorList, setErrorList] = useState([]);
-  const validFirstName = /../.test(firstName);
-  const validLastName = /../.test(lastName);
-  const validEmail = /.....@gmail.com/.test(email);
-  const validMobile = /01[3-9]......../.test(mobile);
+  const validFirstName = /../.test(firstName);  // minimum 2 chars
+  const validLastName = /../.test(lastName); // minimum 2 chars
+  const validEmail = /.....@gmail.com/.test(email); // only gmail accepted
+  const validMobile = /01[3-9]......../.test(mobile); // valid only for mobile operators in Bangladesh
   const validPassword = () => {
+    // minimum 8 digit password with uppercase, lowercase and numbers pattern
     if ((/......../).test(password)
       && (/[A-Z]/).test(password)
       && (/[a-z]/).test(password)
