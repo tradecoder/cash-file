@@ -97,7 +97,7 @@ export default function SignupScreen({ navigation }) {
         .createUserWithEmailAndPassword(email, password)
         .then(response => {         
           const uid = response.user.uid;
-          const data = { _id: uid, firstName, lastName, email, mobile };
+          const data = { _id: uid, firstName, lastName, email, mobile, accountist:[] };
           console.log(data);
 
           const usersRef = firebase.firestore().collection('users');
