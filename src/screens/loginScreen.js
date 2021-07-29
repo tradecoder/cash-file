@@ -30,7 +30,7 @@ export default function LoginScreen({ navigation }) {
                     .get()
                     .then(firebaseData => {
                         if (!firebaseData.exists) {
-                            alert("No record found!");
+                            alert("No record found! Try with another email");
                             return;
                         }
                         const user = firebaseData.data();

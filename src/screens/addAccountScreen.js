@@ -10,12 +10,21 @@ export default function AddAccountScreen(props) {
 
   const [mobileAccount, setMobileAccount] = useState("");
   const [accountType, setAccountType] = useState("");
-  const [accountList, setAccountList] = useState([0,5]); // added temporary value
+  const [accountList, setAccountList] = useState([]);
 
   const accountRef = firebase.firestore().collection('users').doc(uid).collection(`${mobileAccount}-${accountType}`);
   const currentUserProfile = firebase.firestore().collection('users').doc(uid);
 
-  
+
+  // display existing account list
+  useEffect(()=>{
+    currentUserProfile.get()
+    .then((doc)=>{
+      const accounts = doc.data().accountList;
+      setAccountList([...accounts]);     
+    })
+    .catch((err)=>err)
+  }, []);
  
   async function onPressAddAccount(e) {
     e.preventDefault();
@@ -60,7 +69,7 @@ export default function AddAccountScreen(props) {
   const showAccounts =(e)=>{
     return(
     <TouchableOpacity>
-      <Text>{`Account-${e.index+1}: ${e.item}`}</Text>
+      <Text>{`${e.index+1}. Account: ${e.item}`}</Text>
     </TouchableOpacity>
     )
   }
@@ -72,8 +81,9 @@ export default function AddAccountScreen(props) {
       <Input placeholder="Account Type / service name" value={accountType} onChangeText={(e) => setAccountType(e)} />
       <Input placeholder="Account/Mobile number" value={mobileAccount} onChangeText={(e) => setMobileAccount(e)} />
       <Button title="Add now" onPress={onPressAddAccount} />
+      <Text style={{color:"red", padding:15, fontSize:20}}>Your existing account list</Text>
 
-      <Text>
+      <Text style={{paddingLeft:15, paddingTop:0}}>        
         <FlatList data={accountList} renderItem={showAccounts} keyExtractor={(e, i)=>i.toString()}/>
       </Text>
     </ThemeProvider>
