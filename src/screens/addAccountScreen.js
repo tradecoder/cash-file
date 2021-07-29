@@ -24,7 +24,7 @@ export default function AddAccountScreen(props) {
       setAccountList([...accounts]);     
     })
     .catch((err)=>err)
-  }, []);
+  }, [currentUserProfile]);
  
   async function onPressAddAccount(e) {
     e.preventDefault();
@@ -76,8 +76,8 @@ export default function AddAccountScreen(props) {
 
   
   return (
-    <ThemeProvider>      
-      <Text h4>Add an account</Text>
+    <ThemeProvider theme={theme}>      
+      <Text h4 style={{padding:15}}>Add an account</Text>
       <Input placeholder="Account Type / service name" value={accountType} onChangeText={(e) => setAccountType(e)} />
       <Input placeholder="Account/Mobile number" value={mobileAccount} onChangeText={(e) => setMobileAccount(e)} />
       <Button title="Add now" onPress={onPressAddAccount} />
@@ -91,13 +91,14 @@ export default function AddAccountScreen(props) {
 }
 
 const theme = {
+  
   Button: {
-    raised: true,
-    buttonStyle: {
-      height: 60
-    },
+    raised: true,   
     titleStyle: {
-      fontSize: 30
+      fontSize: 20
+    },
+    containerStyle:{
+      margin:15
     }
   }
 }
