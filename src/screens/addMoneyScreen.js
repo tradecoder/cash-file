@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ThemeProvider, Text, Input, Button } from 'react-native-elements';
 import { firebase } from '../firebase/config';
 
 
 export default function AddMoneyScreen(){
     const uid = firebase.auth().currentUser.uid;
-    
-    const [mobileAccount, setMobileAccount] = useState("");
-    const [amount, setAmount] =  useState();
-    const [accountType, setAccountType] = useState("");
+
+    const [receiverAccount, setReceiverAccount] = useState("");
+    const [amount, setAmount] =  useState();    
     const [senderAccount, setSenderAccount] = useState("");
+    const [accountList, setAccountList] = useState([]);
+
+    const currentUserProfile = firebase.firestore().collection("users").doc(uid);
+
     function onChangeAmount(e){
         setAmount(e.replace(/[^0-9]/g,''))
     }
@@ -18,14 +21,25 @@ export default function AddMoneyScreen(){
 
     } 
 
+ // display existing account list
+ useEffect(()=>{
+    currentUserProfile.get()
+    .then((doc)=>{
+      const accounts = doc.data().accountList;
+      setAccountList([...accounts]);     
+    })
+    .catch((err)=>err)
+  }, []);
+
+  
+
     return(
         <ThemeProvider>
-            <Text h2>Add money</Text>
-            <Input placeholder="Account Type / service name" value={accountType} onChangeText={(e)=>setAccountType(e)}/>
-            <Input placeholder="Mobile Account" value={mobileAccount} onChangeText={(e)=>setMobileAccount(e)}/>
+            <Text h4 style={{padding:15}}>Add money</Text>
+            <Input placeholder="Receiver Account" value={receiverAccount} onChangeText={(e)=>setReceiverAccount(e)}/>
             <Input placeholder = "Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount}/>
             <Input placeholder="Sender Account / From" value={senderAccount} onChangeText={(e)=>setSenderAccount(e)}/>
-            <Button title ="Add now" onPress={onPressAddMoney}/>
+            <Button containerStyle={{margin:15}} title ={`Add ${amount>0?amount:0} Taka`} onPress={onPressAddMoney}/>
            
         </ThemeProvider>
     )
