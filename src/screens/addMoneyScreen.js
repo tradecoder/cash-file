@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { TouchableOpacity, FlatList } from 'react-native';
 import {ThemeProvider, Text, Input, Button } from 'react-native-elements';
 import { firebase } from '../firebase/config';
 
@@ -6,9 +7,9 @@ import { firebase } from '../firebase/config';
 export default function AddMoneyScreen(){
     const uid = firebase.auth().currentUser.uid;
 
-    const [receiverAccount, setReceiverAccount] = useState("");
+    const [myAccount, setMyAccount] = useState("");
     const [amount, setAmount] =  useState();    
-    const [senderAccount, setSenderAccount] = useState("");
+    const [customerAccount, setCustomerAccount] = useState("");
     const [accountList, setAccountList] = useState([]);
 
     const currentUserProfile = firebase.firestore().collection("users").doc(uid);
@@ -31,15 +32,28 @@ export default function AddMoneyScreen(){
     .catch((err)=>err)
   }, []);
 
+  const showAccounts =(e)=>{
+    return(
+    <TouchableOpacity onPress={()=>setMyAccount(e.item)}>
+      <Text>{`${e.index+1}. Account: ${e.item}`}</Text>
+    </TouchableOpacity>
+    )
+  }
+
+
+
   
 
     return(
         <ThemeProvider>
-            <Text h4 style={{padding:15}}>Add money</Text>
-            <Input placeholder="Receiver Account" value={receiverAccount} onChangeText={(e)=>setReceiverAccount(e)}/>
+            <Text h4 style={{padding:15}}>Add money</Text>            
             <Input placeholder = "Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount}/>
-            <Input placeholder="Sender Account / From" value={senderAccount} onChangeText={(e)=>setSenderAccount(e)}/>
+            <Input placeholder="Customer mobile / from" value={customerAccount} onChangeText={(e)=>setCustomerAccount(e)}/>
+            <Input placeholder="My Account / to" value={myAccount} onChangeText={(e)=>setMyAccount(e)}/>
             <Button containerStyle={{margin:15}} title ={`Add ${amount>0?amount:0} Taka`} onPress={onPressAddMoney}/>
+            <Text style={{paddingLeft:15, paddingTop:0}}>        
+              <FlatList data={accountList} renderItem={showAccounts} keyExtractor={(e, i)=>i.toString()}/>
+          </Text>
            
         </ThemeProvider>
     )

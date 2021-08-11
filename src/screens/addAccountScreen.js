@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity } from 'react-native';
-import { FlatList } from 'react-native';
+import { TouchableOpacity, FlatList } from 'react-native';
 import { ThemeProvider, Text, Input, Button } from 'react-native-elements';
 import { firebase } from '../firebase/config';
 
@@ -30,14 +29,14 @@ export default function AddAccountScreen(props) {
     e.preventDefault();
     const accountData = {
       uid,
-      mobileAccount,
-      accountType,
+      myAccount:`${mobileAccount}-${accountType}`,
+      customerAccount:"",
       cashIn: 0,
       cashInFrom:"",
       cashOut: 0,
-      cashOutTo:"",
-      accountName:`${mobileAccount}-${accountType}`,
-      refId:""
+      cashOutTo:"",  
+      refId:"",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
     };
 
 
@@ -65,7 +64,7 @@ export default function AddAccountScreen(props) {
 
   }
   
-
+// Show the user owned accounts
   const showAccounts =(e)=>{
     return(
     <TouchableOpacity>
