@@ -15,15 +15,15 @@ export default function AddAccountScreen(props) {
   const currentUserProfile = firebase.firestore().collection('users').doc(uid);
 
 
-  // display existing account list
-  useEffect(()=>{
+  // display existing account list one time
+  useEffect(()=>{   
     currentUserProfile.get()
     .then((doc)=>{
       const accounts = doc.data().accountList;
-      setAccountList([...accounts]);     
+      setAccountList([...accounts]);
     })
-    .catch((err)=>err)
-  }, [currentUserProfile]);
+    .catch((err)=>{alert(`Sorry! System failed! Pls try again later.`)})
+  },[]); // run useEffect only once to prevent memory leak error
  
   async function onPressAddAccount(e) {
     e.preventDefault();
@@ -55,7 +55,21 @@ export default function AddAccountScreen(props) {
         currentUserProfile.set({accountList: firebase.firestore.FieldValue.arrayUnion(`${mobileAccount}-${accountType}`)}, {merge:true});
 
         alert(`Congratulations! ${mobileAccount}-${accountType} account registered successfully.`);
+        setMobileAccount("");
+        setAccountType("");
         
+        //////////////////////////////////////////
+        // this code run manually again to prevent memory leak error in useEffect for dependancy array
+        // showing update account list on submit info but without from useEffect
+        currentUserProfile.get()
+        .then((doc)=>{
+          const accounts = doc.data().accountList;
+          setAccountList([...accounts]);
+        })
+        .catch((err)=>{alert(`Sorry! System failed! Pls try again later.`)})
+        //////////////////////////////////////////
+
+
       })
       .catch((err) => {alert(`Sorry! Operation failed. Pls try again later.`)}) 
     }
