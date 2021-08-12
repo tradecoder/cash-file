@@ -6,22 +6,47 @@ import { firebase } from '../firebase/config';
 
 export default function SendMoneyScreen(){
     const uid = firebase.auth().currentUser.uid;
-    const currentUserProfile = firebase.firestore().collection("users").doc(uid);
-
+    
     const [customerAccount, setCustomerAccount] = useState("");
-    const [amount, setAmount] =  useState();   
+    const [amount, setAmount] =  useState("");   
     const [myAccount, setMyAccount] = useState("");
     const [accountList, setAccountList] = useState([]);
+
+    const currentUserProfile = firebase.firestore().collection("users").doc(uid);    
+
+    function onChangeAmount(e){
+        setAmount(e.replace(/[^0-9]/g,''))
+    }
+
+     function onPressSendMoney(e){
+        e.preventDefault();
+        const accountData = {
+          uid,
+          myAccount,
+          customerAccount,
+          cashIn:0,          
+          cashOut:parseInt(amount),         
+          refId:"",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+       currentUserProfile.collection(myAccount).add(accountData)
+       .then((doc)=>{currentUserProfile.collection(myAccount).doc(doc.id).set({refId:doc.id}, {merge:true});
+       alert(`Tk ${amount} sent to ${customerAccount} from ${myAccount}.`);
+       setAmount("");
+       setMyAccount("");
+       setCustomerAccount("");
+        
+      })
+       .catch((e)=>{alert(`Sorry! Operation failed! Pls try again later.`)})
+    } 
 
 
 
     function onChangeAmount(e){
         setAmount(e.replace(/[^0-9]/g,''))
     }
-    function onPressAddMoney(e){
-        e.preventDefault();
-
-    } 
+   
 
     // display existing account list
     useEffect(()=>{
@@ -40,8 +65,6 @@ export default function SendMoneyScreen(){
         </TouchableOpacity>
         )
     }
-
-
     
     return(
         <ThemeProvider>
@@ -49,7 +72,7 @@ export default function SendMoneyScreen(){
             <Input placeholder = "Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount}/>      
             <Input placeholder="Customer mobile / to" value={customerAccount} onChangeText={(e)=>setCustomerAccount(e)}/>            
             <Input placeholder="My Account / from" value={myAccount} onChangeText={(e)=>setMyAccount(e)}/>
-            <Button title ="Submit" onPress={onPressAddMoney}/>
+            <Button title ="Submit" onPress={onPressSendMoney}/>
             
             <Text style={{paddingLeft:15, paddingTop:0}}>      
                 <FlatList data={accountList} renderItem={showAccounts} keyExtractor={(e, i)=>i.toString()}/>
