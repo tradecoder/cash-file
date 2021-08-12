@@ -31,10 +31,8 @@ export default function AddAccountScreen(props) {
       uid,
       myAccount:`${mobileAccount}-${accountType}`,
       customerAccount:"",
-      cashIn: 0,
-      cashInFrom:"",
-      cashOut: 0,
-      cashOutTo:"",  
+      cashIn: 0,      
+      cashOut: 0,      
       refId:"",
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     };

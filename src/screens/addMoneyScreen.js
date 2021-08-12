@@ -8,18 +8,37 @@ export default function AddMoneyScreen(){
     const uid = firebase.auth().currentUser.uid;
 
     const [myAccount, setMyAccount] = useState("");
-    const [amount, setAmount] =  useState();    
+    const [amount, setAmount] =  useState("");
     const [customerAccount, setCustomerAccount] = useState("");
     const [accountList, setAccountList] = useState([]);
 
-    const currentUserProfile = firebase.firestore().collection("users").doc(uid);
+    const currentUserProfile = firebase.firestore().collection("users").doc(uid);    
 
     function onChangeAmount(e){
         setAmount(e.replace(/[^0-9]/g,''))
     }
-    function onPressAddMoney(e){
-        e.preventDefault();
 
+     function onPressAddMoney(e){
+        e.preventDefault();
+        const accountData = {
+          uid,
+          myAccount,
+          customerAccount,
+          cashIn: parseInt(amount),          
+          cashOut: 0,          
+          refId:"",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+       currentUserProfile.collection(myAccount).add(accountData)
+       .then((doc)=>{currentUserProfile.collection(myAccount).doc(doc.id).set({refId:doc.id}, {merge:true});
+       alert(`Tk ${amount} added to ${myAccount} from ${customerAccount}.`);
+       setAmount("");
+       setMyAccount("");
+       setCustomerAccount("");
+        
+      })
+       .catch((e)=>{alert(`Sorry! Operation failed! Pls try again later.`)})
     } 
 
  // display existing account list
