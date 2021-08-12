@@ -57,7 +57,7 @@ export default function AddAccountScreen(props) {
         alert(`Congratulations! ${mobileAccount}-${accountType} account registered successfully.`);
         
       })
-      .catch(err => err) 
+      .catch((err) => {alert(`Sorry! Operation failed. Pls try again later.`)}) 
     }
 
   }
