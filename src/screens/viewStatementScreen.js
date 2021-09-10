@@ -11,7 +11,7 @@ export default function ViewStatementScreen() {
     const [accountData, setAccountData] = useState([]);
     const [accountList, setAccountList] = useState([]);
     const [statementFor, setStatementFor] = useState("");
-    const tableHead = ["Date", "Client", "Received", "Sent"];
+    const tableHead = ["Date", "Client", "Received", "Sent", "Balance"];
 
     const currentUserProfile = firebase.firestore().collection("users").doc(uid);   
 
@@ -30,11 +30,11 @@ export default function ViewStatementScreen() {
 
     function generateStatement(e){
         setStatementFor(e);
-        currentUserProfile.collection(e).get()
+        currentUserProfile.collection(e).orderBy("createdAt", "desc").get()
         .then((snapshot)=>{
             let contents = [];
             snapshot.forEach((doc)=>{
-                let data = doc.data();  
+                let data = doc.data(); 
                      
                 
                 // retrieve account data and update accountData state.
@@ -44,18 +44,20 @@ export default function ViewStatementScreen() {
                     contents.push({
                         Date: data.createdAt.toDate().toLocaleDateString(),
                         CashIn: data.cashIn,
-                        Client: data.customerAccount                   
+                        Client: data.customerAccount,
+                        Balance:"0"                 
                     })
-                } else if(data.cashOut>0){
+                } 
+
+                 if(data.cashOut>0){
                     contents.push({
                         Date:data.createdAt.toDate().toLocaleDateString(),
                         CashOut:data.cashOut,
-                        Client:data.customerAccount                    
+                        Client:data.customerAccount,
+                        Balance:"0"
                     })
                 }
-                else{
-                    return;
-                }                
+                              
                 
             })
             setAccountData(contents);
@@ -80,27 +82,33 @@ export default function ViewStatementScreen() {
 
     return (
         <ThemeProvider>
-             <Text h4 style={{ paddingLeft: 15, paddingTop: 0 }}>{statementFor}</Text> 
-            <Table style={{ paddingLeft: 15, paddingTop: 0 }}>
-                <Row data={tableHead} />
-                {accountData.map((e)=>{
-                    const adata = [];
-                    adata.push(e.Date);
-                    adata.push(e.Client)
-                    adata.push(e.CashIn)
-                    adata.push(e.CashOut)
+             
+             {accountData.length?(
+             <>
+             <Text style={{ paddingLeft: 15, paddingTop: 10, paddingBottom:10, fontSize:18, fontWeight:"bold" }}>* Statement for {statementFor} *</Text> 
+             <Table style={{ paddingLeft: 15, paddingTop: 0 }}>
+                 <Row data={tableHead}/>
+                    {accountData.map((e)=>{
+                    const trxdata = [];
+                    trxdata.push(e.Date);
+                    trxdata.push(e.Client)
+                    trxdata.push(e.CashIn)
+                    trxdata.push(e.CashOut)
+                    trxdata.push(e.Balance)
                    
                     return (
-                        <Row data={adata}/>
+                        <Row data={trxdata}/>
                     )
 
                 })}
             </Table>
-               
-            <Text h4 style={{ paddingLeft: 15, paddingTop: 0 }}>Select an account</Text>
+             </>):(
+             <>
+             <Text h4 style={{ paddingLeft: 15, paddingTop: 0 }}>Select an account</Text>
             <Text style={{ paddingLeft: 15, paddingTop: 0 }}>
                 <FlatList data={accountList} renderItem={showAccounts} keyExtractor={(e, i) => i.toString()} />
             </Text>
+             </>)}
         </ThemeProvider>
     )
 }
