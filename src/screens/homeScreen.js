@@ -33,14 +33,7 @@ export default function HomeScreen({navigation}) {
                     </Col>
                 </Row>         
                 <Row size={50}>
-                    <Col>
-                        <TouchableOpacity>
-                            <Card>
-                                <Button onPress={()=>navigation.navigate("ReceiveLoan")} icon={<Icon reverse name="briefcase" type="font-awesome" color="black"/>} ></Button>
-                                <Card.Title>Receive loan</Card.Title>
-                            </Card>
-                        </TouchableOpacity>
-                    </Col>
+                   
                     <Col>
                         <TouchableOpacity>
                             <Card>

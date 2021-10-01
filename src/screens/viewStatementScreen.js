@@ -11,7 +11,7 @@ export default function ViewStatementScreen() {
     const [accountData, setAccountData] = useState([]);
     const [accountList, setAccountList] = useState([]);
     const [statementFor, setStatementFor] = useState("");
-    const tableHead = ["Date", "Client", "Received", "Sent", "Balance"];
+    const tableHead = ["Date", "Client", "Received", "Sent", "C.Balance"];
 
     const currentUserProfile = firebase.firestore().collection("users").doc(uid);   
 
@@ -45,7 +45,7 @@ export default function ViewStatementScreen() {
                         Date: data.createdAt.toDate().toLocaleDateString(),
                         CashIn: data.cashIn,
                         Client: data.customerAccount,
-                        Balance:"0"                 
+                        Balance:data.balance               
                     })
                 } 
 
@@ -54,7 +54,7 @@ export default function ViewStatementScreen() {
                         Date:data.createdAt.toDate().toLocaleDateString(),
                         CashOut:data.cashOut,
                         Client:data.customerAccount,
-                        Balance:"0"
+                        Balance:data.balance
                     })
                 }
                               

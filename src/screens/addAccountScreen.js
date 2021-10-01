@@ -10,7 +10,7 @@ export default function AddAccountScreen(props) {
   const [mobileAccount, setMobileAccount] = useState("");
   const [accountType, setAccountType] = useState("");
   const [accountList, setAccountList] = useState([]);
-
+  
   const accountRef = firebase.firestore().collection('users').doc(uid).collection(`${mobileAccount}-${accountType}`);
   const currentUserProfile = firebase.firestore().collection('users').doc(uid);
 
@@ -34,6 +34,7 @@ export default function AddAccountScreen(props) {
       cashIn: 0,      
       cashOut: 0,      
       refId:"",
+      balance:0,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     };
 

@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { SignupScreen, LoginScreen, HomeScreen, AddMoneyScreen, SendMoneyScreen, ReceiveLoanScreen, ViewStatementScreen, AddAccountScreen } from './src/screens/screensLib';
+import { SignupScreen, LoginScreen, HomeScreen, AddMoneyScreen, SendMoneyScreen, ViewStatementScreen, AddAccountScreen } from './src/screens/screensLib';
 import { firebase } from './src/firebase/config';
 
 ////////////////////////////////////////
@@ -52,8 +52,7 @@ export default function App() {
           <>
           <Stack.Screen name="Home" component={HomeScreen}/>
           <Stack.Screen name="AddMoney" component={AddMoneyScreen} />
-          <Stack.Screen name="SendMoney" component={SendMoneyScreen}/>
-          <Stack.Screen name="ReceiveLoan" component={ReceiveLoanScreen} />
+          <Stack.Screen name="SendMoney" component={SendMoneyScreen}/>          
           <Stack.Screen name="ViewStatement" component={ViewStatementScreen} />
           <Stack.Screen name="Account" component={AddAccountScreen} />
           </>

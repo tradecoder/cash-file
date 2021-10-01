@@ -11,6 +11,7 @@ export default function SendMoneyScreen(){
     const [amount, setAmount] =  useState("");   
     const [myAccount, setMyAccount] = useState("");
     const [accountList, setAccountList] = useState([]);
+    const [balance, setBalance]  =  useState("");
 
     const currentUserProfile = firebase.firestore().collection("users").doc(uid);    
 
@@ -18,6 +19,17 @@ export default function SendMoneyScreen(){
         setAmount(e.replace(/[^0-9]/g,''))
     }
 
+
+    function currentAccountBalance (e){
+        currentUserProfile.collection(myAccount).orderBy("createdAt", "desc").limit(1).get()
+        .then((snapshot)=>snapshot.forEach((doc)=>{setBalance(doc.data().balance)}))
+        .catch((err)=>console.log(err))
+  
+      }
+      if(myAccount){
+        currentAccountBalance();     
+      }
+  
      function onPressSendMoney(e){
         e.preventDefault();
         const accountData = {
@@ -25,20 +37,34 @@ export default function SendMoneyScreen(){
           myAccount,
           customerAccount,
           cashIn:0,          
-          cashOut:parseInt(amount),         
+          cashOut:parseInt(amount),
+          balance:(balance-parseInt(amount)),
           refId:"",
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         };
 
+        if(myAccount && amount && customerAccount){
        currentUserProfile.collection(myAccount).add(accountData)
        .then((doc)=>{currentUserProfile.collection(myAccount).doc(doc.id).set({refId:doc.id}, {merge:true});
        alert(`Tk ${amount} sent to ${customerAccount} from ${myAccount}.`);
        setAmount("");
        setMyAccount("");
        setCustomerAccount("");
+       setBalance("");
         
       })
        .catch((e)=>{alert(`Sorry! Operation failed! Pls try again later.`)})
+    }else{
+        if(!amount){
+          alert("Please enter Amount")
+        }else if(!customerAccount){
+          alert("Please enter Customer Account")
+        }
+        else{
+          alert("Please select Your Account")
+        }
+      }
+
     } 
 
 
