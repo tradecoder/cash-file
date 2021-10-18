@@ -47,7 +47,7 @@ export default function App() {
   // if the user is not logged in, display login screen with signup page navigation
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'orange'}, cardStyle:{backgroundColor:'white'} }}>
         {user?(
           <>
           <Stack.Screen name="Home" component={HomeScreen}/>

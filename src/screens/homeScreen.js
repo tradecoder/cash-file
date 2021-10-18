@@ -1,6 +1,6 @@
 import React from 'react';
-import { ThemeProvider, Text, Card, Icon, Button } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
+import { ThemeProvider, Text, Card, Icon, Button, withTheme } from 'react-native-elements';
+import { TouchableOpacity, BackHandler} from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { firebase } from '../firebase/config';
 
@@ -12,12 +12,13 @@ export default function HomeScreen({navigation}) {
   
     return (
         <ThemeProvider theme={theme}>
+            
             <Text h4 style={{textAlign:"center"}}> Select what you want to do</Text>
             <Grid>
                 <Row size={20}>
                     <Col>
                         <TouchableOpacity >
-                            <Card>                                                 
+                            <Card>                                          
                                 <Button onPress={()=>navigation.navigate("AddMoney")} icon={<Icon reverse name="plus" type="font-awesome" color="green"/>} ></Button>
                                 <Card.Title>Add money</Card.Title>           
                             </Card>
@@ -37,47 +38,53 @@ export default function HomeScreen({navigation}) {
                     <Col>
                         <TouchableOpacity>
                             <Card>
-                                <Button onPress={()=>navigation.navigate("ViewStatement")} icon={<Icon reverse name="book" type="font-awesome" color="red"/>} ></Button>
+                                <Button onPress={()=>navigation.navigate("ViewStatement")} icon={<Icon reverse name="book" type="font-awesome" color="dodgerblue"/>} ></Button>
                                 <Card.Title>View Statement</Card.Title>
                             </Card>
                         </TouchableOpacity>
                     </Col>
-                </Row>
-                <Row size={15}>
+
                     <Col>
-                        <TouchableOpacity onPress={()=>navigation.navigate("Account")}>
+                        <TouchableOpacity>
                             <Card>
-                                <Card.Title>Setings</Card.Title>
+                                <Button onPress={()=>navigation.navigate("Account")} icon={<Icon reverse name="gear" type="font-awesome" color="orange"/>} ></Button>
+                                <Card.Title>Set Account</Card.Title>
                             </Card>
                         </TouchableOpacity>
                     </Col>
+                </Row>
+                <Row size={20}>
+                    
                     <Col>
-                        <TouchableOpacity onPress={()=>alert("Please press your phone home button- then clear the screen!")}>
+                        <TouchableOpacity>
                             <Card>
-                                <Card.Title>Exit</Card.Title>
+                                <Button onPress={()=>BackHandler.exitApp()} icon={<Icon reverse name="power-off" type="font-awesome" color="red"/>} ></Button>
+                                
                             </Card>
+
                         </TouchableOpacity>
                     </Col>
                 </Row>
             </Grid>
+           
         </ThemeProvider>
     )
 }
 const theme = {
-    Card: {
-        containerStyle: {
-            backgroundColor: "orange",                
-        } 
+    Card:{
+        containerStyle:{
+            borderColor:'white',
+            elevation:0,
+        }
     },
+    
     Icon:{
         iconStyle:{
             color:"white",
         }
     },
     Button:{
-        buttonStyle:{
-            backgroundColor:"orange"
-        }
-    }
+       type:'clear'
+    },
 
 }
