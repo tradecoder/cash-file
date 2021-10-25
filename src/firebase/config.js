@@ -16,9 +16,6 @@ const firebaseConfig = {
     measurementId: ""
   };
 
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
 if(!firebase.apps.length){
   firebase.initializeApp(firebaseConfig)
 }else {

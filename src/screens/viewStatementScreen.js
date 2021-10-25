@@ -81,14 +81,14 @@ export default function ViewStatementScreen() {
     
 
     return (
-        <ThemeProvider>
+        <ThemeProvider theme={theme}>
              
              {accountData.length?(
              <>
              <Text style={{ paddingLeft: 15, paddingTop: 10, paddingBottom:10, fontSize:18, fontWeight:"bold" }}>* Statement for {statementFor} *</Text> 
              <Table style={{ paddingLeft: 15, paddingTop: 0 }}>
                  <Row data={tableHead}/>
-                    {accountData.map((e)=>{
+                    {accountData.map((e,i)=>{
                     const trxdata = [];
                     trxdata.push(e.Date);
                     trxdata.push(e.Client)
@@ -111,4 +111,13 @@ export default function ViewStatementScreen() {
              </>)}
         </ThemeProvider>
     )
+}
+
+
+const theme = {
+    Text:{
+        style:{
+            paddingTop:10
+        }
+    }
 }

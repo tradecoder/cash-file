@@ -112,5 +112,10 @@ const theme = {
         titleStyle: {
           fontSize: 20
         }
+      },
+      Text:{
+        style:{
+          paddingTop:10
+        }
       }
 }

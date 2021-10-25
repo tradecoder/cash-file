@@ -93,8 +93,8 @@ export default function SendMoneyScreen(){
     }
     
     return(
-        <ThemeProvider>
-            <Text h2>Send money</Text>
+        <ThemeProvider theme={theme}>
+            <Text h4 style={{padding:15}}>Send money</Text>
             <Input placeholder = "Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount}/>      
             <Input placeholder="Customer mobile / to" value={customerAccount} onChangeText={(e)=>setCustomerAccount(e)}/>            
             <Input placeholder="My Account / from" value={myAccount} onChangeText={(e)=>setMyAccount(e)}/>
@@ -108,13 +108,19 @@ export default function SendMoneyScreen(){
 }
 
 const theme = {
+ 
     Button: {
         raised: true,
         buttonStyle: {
-          height: 60
+          height: 40
         },
         titleStyle: {
-          fontSize: 30
+          fontSize: 20
+        }
+      },
+      Text:{
+        style:{
+          paddingTop:10
         }
       }
 }
