@@ -104,7 +104,7 @@ if(myAccount && amount && customerAccount && validCustomerAccount){
         <ThemeProvider theme={theme}>
             <Text h4 style={{padding:15}}>Add money</Text>            
             <Input placeholder = "Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount}/>
-            <Input placeholder="Customer mobile / from" value={customerAccount} onChangeText={onChangeCustomerAccount}/>
+            <Input placeholder="Customer mobile / from" keyboardType="numeric" value={customerAccount} onChangeText={onChangeCustomerAccount}/>
             <Input placeholder="My Account (select from below)" value={myAccount} onChangeText={(e)=>setMyAccount(e)} disabled/>
             <Button containerStyle={{margin:15}} title ={`Add ${amount>0?amount:0} Taka`} onPress={onPressAddMoney}/>
             <Text style={{paddingLeft:15, paddingTop:0}}>        

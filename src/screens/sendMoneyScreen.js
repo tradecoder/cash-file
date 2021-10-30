@@ -108,7 +108,7 @@ export default function SendMoneyScreen(){
         <ThemeProvider theme={theme}>
             <Text h4 style={{padding:15}}>Send money</Text>
             <Input placeholder = "Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount}/>      
-            <Input placeholder="Customer mobile / to" value={customerAccount} onChangeText={onChangeCustomerAccount}/>            
+            <Input placeholder="Customer mobile/ to" keyboardType="numeric" value={customerAccount} onChangeText={onChangeCustomerAccount}/>            
             <Input placeholder="My Account / from (select from the list)" value={myAccount} onChangeText={(e)=>setMyAccount(e)} disabled/>
             <Button title ="Submit" onPress={onPressSendMoney}/>
             
