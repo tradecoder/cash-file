@@ -4,6 +4,12 @@ import { TouchableOpacity, FlatList } from 'react-native';
 import { firebase } from '../firebase/config';
 import { Table, Row, Rows } from 'react-native-table-component';
 
+////////////////////////////////////////
+// ignore yellow error 'Warning Each Child '
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Warning']);
+///////////////////////////////////////
 
 
 export default function ViewStatementScreen() {
@@ -12,6 +18,7 @@ export default function ViewStatementScreen() {
     const [accountList, setAccountList] = useState([]);
     const [statementFor, setStatementFor] = useState("");
     const tableHead = ["Date", "Client", "Received", "Sent", "C.Balance"];
+ 
 
     const currentUserProfile = firebase.firestore().collection("users").doc(uid);   
 
@@ -61,6 +68,7 @@ export default function ViewStatementScreen() {
                 
             })
             setAccountData(contents);
+            
            
         })
         .catch((err)=>err)
@@ -69,28 +77,29 @@ export default function ViewStatementScreen() {
 
     // Generate account list for FlatList
 
-    const showAccounts = (e) => {
+    const showAccountList = (e) => {
         return (
             <TouchableOpacity onPress={() => generateStatement(e.item)}>
                 <Text>{`${e.index + 1}. Account: ${e.item}`}</Text>
             </TouchableOpacity>
         )
     }
-
-
     
 
+
     return (
+       
         <ThemeProvider theme={theme}>
-             
+                     
              {accountData.length?(
              <>
              <Text style={{ paddingLeft: 15, paddingTop: 10, paddingBottom:10, fontSize:18, fontWeight:"bold" }}>* Statement for {statementFor} *</Text> 
              <Table style={{ paddingLeft: 15, paddingTop: 0 }}>
                  <Row data={tableHead}/>
-                    {accountData.map((e,i)=>{
+               {accountData.map((e)=>{
                     const trxdata = [];
-                    trxdata.push(e.Date);
+                    // trxdata -- transaction data
+                    trxdata.push(e.Date)
                     trxdata.push(e.Client)
                     trxdata.push(e.CashIn)
                     trxdata.push(e.CashOut)
@@ -106,10 +115,12 @@ export default function ViewStatementScreen() {
              <>
              <Text h4 style={{ paddingLeft: 15, paddingTop: 0 }}>Select an account</Text>
             <Text style={{ paddingLeft: 15, paddingTop: 0 }}>
-                <FlatList data={accountList} renderItem={showAccounts} keyExtractor={(e, i) => i.toString()} />
+                <FlatList data={accountList} renderItem={showAccountList} keyExtractor={(e, i)=>i.toString()}/>
             </Text>
              </>)}
+             
         </ThemeProvider>
+        
     )
 }
 

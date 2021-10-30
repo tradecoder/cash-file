@@ -12,8 +12,9 @@ export default function HomeScreen({navigation}) {
   
     return (
         <ThemeProvider theme={theme}>
+            <Text style={{textAlign:"center", padding:10, color:"gray"}}>CASH FILE by TRADE CODER</Text>      
             
-            <Text h4 style={{textAlign:"center"}}> Select what you want to do</Text>
+            <Text h4 style={{textAlign:"center", padding:10}}>Select an Action</Text>
             <Grid>
                 <Row size={20}>
                     <Col>
@@ -33,7 +34,7 @@ export default function HomeScreen({navigation}) {
                         </TouchableOpacity>
                     </Col>
                 </Row>         
-                <Row size={50}>
+                <Row size={20}>
                    
                     <Col>
                         <TouchableOpacity>
@@ -59,11 +60,24 @@ export default function HomeScreen({navigation}) {
                         <TouchableOpacity>
                             <Card>
                                 <Button onPress={()=>BackHandler.exitApp()} icon={<Icon reverse name="power-off" type="font-awesome" color="red"/>} ></Button>
-                                
+                                <Card.Title>Exit</Card.Title>
                             </Card>
 
                         </TouchableOpacity>
                     </Col>
+                    <Col>
+                        <TouchableOpacity>
+                            <Card>
+                                <Button icon={<Icon reverse name="info" type="font-awesome" color="purple"/>} ></Button>
+                                <Card.Title>Help</Card.Title>
+                            </Card>
+
+                        </TouchableOpacity>
+                    </Col>
+                </Row>
+                <Row size={20} style={{padding:20}}>
+                         
+
                 </Row>
             </Grid>
            

@@ -9,10 +9,11 @@ import { firebase } from './src/firebase/config';
 // ignore yellow error 'setting a timer'
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer']);
+// ignore child element key prop
+LogBox.ignoreLogs(['Warning']);
 /////////////////////////////////////////
 
 const Stack = createStackNavigator();
-
 
 
 export default function App() {
@@ -47,7 +48,7 @@ export default function App() {
   // if the user is not logged in, display login screen with signup page navigation
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'orange'}, cardStyle:{backgroundColor:'white'} }}>
+      <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'orange'}, headerTitleStyle:{color:'black'}, cardStyle:{backgroundColor:'white'} }}>
         {user?(
           <>
           <Stack.Screen name="Home" component={HomeScreen}/>

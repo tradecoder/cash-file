@@ -12,11 +12,21 @@ export default function SendMoneyScreen(){
     const [myAccount, setMyAccount] = useState("");
     const [accountList, setAccountList] = useState([]);
     const [balance, setBalance]  =  useState("");
+    const validCustomerAccount = /01[3-9]......../.test(customerAccount); // valid only for mobile operators in Bangladesh
 
     const currentUserProfile = firebase.firestore().collection("users").doc(uid);    
 
     function onChangeAmount(e){
         setAmount(e.replace(/[^0-9]/g,''))
+    }
+
+    function onChangeCustomerAccount(e){
+      if(e.length>12){ 
+        // for account identifier, one extra digit can be added at the last of mobile number
+        // but if it exceeds the extra identifier it will return to 11 digit mobile number
+        e = e.slice(0,11)
+      }
+      setCustomerAccount(e.replace(/[^0-9]/g, ''))
     }
 
 
@@ -59,6 +69,8 @@ export default function SendMoneyScreen(){
           alert("Please enter Amount")
         }else if(!customerAccount){
           alert("Please enter Customer Account")
+        } else if(!validCustomerAccount){
+          alert("Please enter valid customer mobile")
         }
         else{
           alert("Please select Your Account")
@@ -96,8 +108,8 @@ export default function SendMoneyScreen(){
         <ThemeProvider theme={theme}>
             <Text h4 style={{padding:15}}>Send money</Text>
             <Input placeholder = "Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount}/>      
-            <Input placeholder="Customer mobile / to" value={customerAccount} onChangeText={(e)=>setCustomerAccount(e)}/>            
-            <Input placeholder="My Account / from" value={myAccount} onChangeText={(e)=>setMyAccount(e)}/>
+            <Input placeholder="Customer mobile / to" value={customerAccount} onChangeText={onChangeCustomerAccount}/>            
+            <Input placeholder="My Account / from (select from the list)" value={myAccount} onChangeText={(e)=>setMyAccount(e)} disabled/>
             <Button title ="Submit" onPress={onPressSendMoney}/>
             
             <Text style={{paddingLeft:15, paddingTop:0}}>      

@@ -13,10 +13,20 @@ export default function AddMoneyScreen(){
     const [accountList, setAccountList] = useState([]);
     const [balance, setBalance] =  useState("");
 
-    const currentUserProfile = firebase.firestore().collection("users").doc(uid);    
+    const currentUserProfile = firebase.firestore().collection("users").doc(uid);
+    const validCustomerAccount = /01[3-9]......../.test(customerAccount); // valid only for mobile operators in Bangladesh
 
     function onChangeAmount(e){
         setAmount(e.replace(/[^0-9]/g,''))
+    }
+
+    function onChangeCustomerAccount(e){
+      if(e.length>12){ 
+        // for account identifier, one extra digit can be added at the last of mobile number
+        // but if it exceeds the extra identifier it will return to 11 digit mobile number
+        e = e.slice(0,11)
+      }
+      setCustomerAccount(e.replace(/[^0-9]/g, ''))
     }
 
     function currentAccountBalance (e){
@@ -59,6 +69,8 @@ if(myAccount && amount && customerAccount){
         alert("Please enter Amount")
       }else if(!customerAccount){
         alert("Please enter Customer Account")
+      }else if(!validCustomerAccount){
+        alert("Please enter a valid customer mobile")
       }
       else{
         alert("Please select Your Account")
@@ -92,7 +104,7 @@ if(myAccount && amount && customerAccount){
         <ThemeProvider theme={theme}>
             <Text h4 style={{padding:15}}>Add money</Text>            
             <Input placeholder = "Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount}/>
-            <Input placeholder="Customer mobile / from" value={customerAccount} onChangeText={(e)=>setCustomerAccount(e)}/>
+            <Input placeholder="Customer mobile / from" value={customerAccount} onChangeText={onChangeCustomerAccount}/>
             <Input placeholder="My Account (select from below)" value={myAccount} onChangeText={(e)=>setMyAccount(e)} disabled/>
             <Button containerStyle={{margin:15}} title ={`Add ${amount>0?amount:0} Taka`} onPress={onPressAddMoney}/>
             <Text style={{paddingLeft:15, paddingTop:0}}>        
