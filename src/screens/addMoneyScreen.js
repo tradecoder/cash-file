@@ -53,7 +53,7 @@ export default function AddMoneyScreen(){
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         };
 
-if(myAccount && amount && customerAccount){
+if(myAccount && amount && customerAccount && validCustomerAccount){
        currentUserProfile.collection(myAccount).add(accountData)
        .then((doc)=>{currentUserProfile.collection(myAccount).doc(doc.id).set({refId:doc.id}, {merge:true});
        alert(`Tk ${amount} added to ${myAccount} from ${customerAccount}.`);
