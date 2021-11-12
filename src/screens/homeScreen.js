@@ -1,104 +1,77 @@
 import React from 'react';
-import { ThemeProvider, Text, Card, Icon, Button, withTheme } from 'react-native-elements';
-import { TouchableOpacity, BackHandler} from 'react-native';
-import { Col, Row, Grid } from "react-native-easy-grid";
+import { NativeBaseProvider, Heading, Box, Text, Center, VStack, HStack, IconButton, Icon, SimpleGrid, Divider } from 'native-base';
+import { TouchableOpacity, BackHandler } from 'react-native';
 import { firebase } from '../firebase/config';
+import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from '@expo/vector-icons';
 
-
-
-export default function HomeScreen({navigation}) {  
+export default function HomeScreen({ navigation }) {
     const uid = firebase.auth().currentUser.uid;
-    
-  
+
+
     return (
-        <ThemeProvider theme={theme}>
-            <Text style={{textAlign:"center", padding:10, color:"gray"}}>CASH FILE by TRADE CODER</Text>      
-            
-            <Text h4 style={{textAlign:"center", padding:10}}>Select an Action</Text>
-            <Grid>
-                <Row size={20}>
-                    <Col>
-                        <TouchableOpacity >
-                            <Card>                                          
-                                <Button onPress={()=>navigation.navigate("AddMoney")} icon={<Icon reverse name="plus" type="font-awesome" color="green"/>} ></Button>
-                                <Card.Title>Add money</Card.Title>           
-                            </Card>
+        <NativeBaseProvider>
+            <Center pt={5}>
+                <Heading size={'sm'}>Select an action</Heading>
+                <Divider m={5} />
+                <SimpleGrid columns={2} space={10}>
+                    <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
+                        <TouchableOpacity onPress={() => navigation.navigate("AddMoney")}>
+                            <Center>
+                                <FontAwesome name="plus" size={48} color="green"/>
+                                <Divider m={2}/>
+                                <Text bold>Add money</Text>
+                            </Center>
                         </TouchableOpacity>
-                    </Col>
-                    <Col>
+                    </Box>
+                    <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
+                        <TouchableOpacity onPress={() => navigation.navigate("SendMoney")}>
+                            <Center>
+                                <FontAwesome name="send" size={48} color="blue" />
+                                <Divider m={2}/>
+                                <Text bold>Send money</Text>
+                            </Center>
+                        </TouchableOpacity>
+                    </Box>
+                    <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
+                        <TouchableOpacity onPress={() => navigation.navigate("ViewStatement")}>
+                            <Center>
+                                <FontAwesome name="book" size={48} color="dodgerblue" />
+                                <Divider m={2}/>
+                                <Text bold>View Statement</Text>
+                            </Center>
+                        </TouchableOpacity>
+                    </Box>
+                    <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
+                        <TouchableOpacity onPress={() => navigation.navigate("Account")}>
+                            <Center>
+                                <FontAwesome name="gear" size={48} color="orange" />
+                                <Divider m={2}/>
+                                <Text bold>Set Account</Text>
+                            </Center>
+                        </TouchableOpacity>
+                    </Box>
+                    <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
+                        <TouchableOpacity onPress={() => BackHandler.exitApp()}>
+                            <Center>
+                                <FontAwesome name="power-off" size={48} color="red" />
+                                <Divider m={2}/>
+                                <Text bold>Exit</Text>
+                            </Center>
+                        </TouchableOpacity>
+                    </Box>
+                    <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
                         <TouchableOpacity>
-                            <Card>
-                                <Button onPress={()=>navigation.navigate("SendMoney")} icon={<Icon reverse name="paper-plane" type="font-awesome" color="blue"/>} ></Button>
-                                <Card.Title>Send money</Card.Title>
-                            </Card>
+                            <Center>
+                                <FontAwesome name="info" size={48} color="blue" />
+                                <Divider m={2}/>
+                                <Text bold>Help</Text>
+                            </Center>
                         </TouchableOpacity>
-                    </Col>
-                </Row>         
-                <Row size={20}>
-                   
-                    <Col>
-                        <TouchableOpacity>
-                            <Card>
-                                <Button onPress={()=>navigation.navigate("ViewStatement")} icon={<Icon reverse name="book" type="font-awesome" color="dodgerblue"/>} ></Button>
-                                <Card.Title>View Statement</Card.Title>
-                            </Card>
-                        </TouchableOpacity>
-                    </Col>
+                    </Box>
+                </SimpleGrid>
+            </Center>
 
-                    <Col>
-                        <TouchableOpacity>
-                            <Card>
-                                <Button onPress={()=>navigation.navigate("Account")} icon={<Icon reverse name="gear" type="font-awesome" color="orange"/>} ></Button>
-                                <Card.Title>Set Account</Card.Title>
-                            </Card>
-                        </TouchableOpacity>
-                    </Col>
-                </Row>
-                <Row size={20}>
-                    
-                    <Col>
-                        <TouchableOpacity>
-                            <Card>
-                                <Button onPress={()=>BackHandler.exitApp()} icon={<Icon reverse name="power-off" type="font-awesome" color="red"/>} ></Button>
-                                <Card.Title>Exit</Card.Title>
-                            </Card>
-
-                        </TouchableOpacity>
-                    </Col>
-                    <Col>
-                        <TouchableOpacity>
-                            <Card>
-                                <Button icon={<Icon reverse name="info" type="font-awesome" color="purple"/>} ></Button>
-                                <Card.Title>Help</Card.Title>
-                            </Card>
-
-                        </TouchableOpacity>
-                    </Col>
-                </Row>
-                <Row size={20} style={{padding:20}}>
-                         
-
-                </Row>
-            </Grid>
-           
-        </ThemeProvider>
+        </NativeBaseProvider>
     )
-}
-const theme = {
-    Card:{
-        containerStyle:{
-            borderColor:'white',
-            elevation:0,
-        }
-    },
-    
-    Icon:{
-        iconStyle:{
-            color:"white",
-        }
-    },
-    Button:{
-       type:'clear'
-    },
-
 }

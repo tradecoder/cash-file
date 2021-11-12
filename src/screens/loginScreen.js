@@ -47,10 +47,10 @@ export default function LoginScreen({ navigation }) {
 
     return (
         <NativeBaseProvider>
-            <VStack p={5} flex={1} space={3}>
+            <VStack p={5} flex={1} space={4}>
                 <Heading size={'md'} mb={15}>Login to continue</Heading>
 
-                <Input placeholder='Gmail address' onChangeText={onChangeEmail} value={email} secureTextEntry={true} maxLength={35} size={'lg'}
+                <Input placeholder='Gmail address' onChangeText={onChangeEmail} value={email} maxLength={35} size={'lg'}
                     InputLeftElement={
                         <Icon
                             as={<MaterialIcons name="email" />}
@@ -68,7 +68,7 @@ export default function LoginScreen({ navigation }) {
                             color="yellow.500"
                         />
                     } />
-                <Button onPress={onPressLogin} size={'lg'} colorScheme={'yellow'} mt={8}>Login</Button>
+                <Button onPress={onPressLogin} size={'lg'} colorScheme={'yellow'} mt={8} _text={{fontSize:20}}>Login</Button>
 
                 <Box mt={5}>                    
                         <TouchableOpacity onPress={() => navigation.navigate("Signup")}>

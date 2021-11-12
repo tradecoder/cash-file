@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, FlatList } from 'react-native';
-import { ThemeProvider, Text, Input, Button } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native';
 import { firebase } from '../firebase/config';
+import {NativeBaseProvider, VStack, HStack, Box, Heading, Text, Button, Input, Icon, FlatList} from 'native-base';
 
 
 export default function AddAccountScreen(props) {
@@ -80,36 +80,31 @@ export default function AddAccountScreen(props) {
   const showAccounts =(e)=>{
     return(
     <TouchableOpacity>
-      <Text>{`${e.index+1}. Account: ${e.item}`}</Text>
+      <Box p={'1'}>{`${e.index+1}. Account: ${e.item}`}</Box>
     </TouchableOpacity>
     )
   }
 
   
   return (
-    <ThemeProvider theme={theme}>      
-      <Text h4 style={{padding:15}}>Add an account</Text>
-      <Input placeholder="Account Type / service name" value={accountType} onChangeText={(e) => setAccountType(e)} />
-      <Input placeholder="Account/Mobile number" value={mobileAccount} onChangeText={(e) => setMobileAccount(e)} />
-      <Button title="Add now" onPress={onPressAddAccount} />
-      <Text style={{color:"red", padding:15, fontSize:20}}>Your existing account list</Text>
+    <NativeBaseProvider>
+      <VStack p={5} space={3}>
+      <Heading size={'md'} mb={5}>Add an account</Heading>
+      <Box>
+      <Text>Account type / service name</Text>
+      <Input size={'lg'} placeholder="Account Type / service name" value={accountType} onChangeText={(e) => setAccountType(e)} />
+      </Box>
+      <Box>
+      <Text>Account / Mobile number</Text>
+      <Input size={'lg'} keyboardType={'numeric'} placeholder="Account/Mobile number" value={mobileAccount} onChangeText={(e) => setMobileAccount(e)} />
+      </Box>
+      <Button size={'lg'} onPress={onPressAddAccount} _text={{fontSize:20}} mt={'5'} colorScheme={'yellow'}>Add now </Button>
+      <Heading size={'sm'} my={2}>Your existing account list</Heading>
 
-      <Text style={{paddingLeft:15, paddingTop:0}}>        
+      <Box>  
         <FlatList data={accountList} renderItem={showAccounts} keyExtractor={(e, i)=>i.toString()}/>
-      </Text>
-    </ThemeProvider>
+      </Box>
+      </VStack>
+    </NativeBaseProvider>
   )
-}
-
-const theme = {
-  
-  Button: {
-    raised: true,   
-    titleStyle: {
-      fontSize: 20
-    },
-    containerStyle:{
-      margin:15
-    }
-  }
 }

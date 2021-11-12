@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { ThemeProvider, Text, Input, Button, Card } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import { firebase } from '../firebase/config';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { NativeBaseProvider, VStack, Heading, Box, Text, Input, Button } from 'native-base';
 
 export default function SignupScreen({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -95,9 +94,9 @@ export default function SignupScreen({ navigation }) {
     if (isDataValid()) {
       firebase.auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(response => {         
+        .then(response => {
           const uid = response.user.uid;
-          const data = { _id: uid, firstName, lastName, email, mobile, accountList:[] };
+          const data = { _id: uid, firstName, lastName, email, mobile, accountList: [] };
           console.log(data);
 
           const usersRef = firebase.firestore().collection('users');
@@ -116,44 +115,28 @@ export default function SignupScreen({ navigation }) {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <KeyboardAwareScrollView>
-        <Card>
-        <Text>{errorList.length ? showInvalidDataList() : <Text h4>Signup to continue</Text>}</Text>
-        </Card>
-        <Card>
-          <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
-          <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
-          <Input placeholder='Gmail address' onChangeText={onChangeEmail} maxLength={35} />
-          <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} />
-          <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} />
-          <Button title="Signup" onPress={onPressSignup} />
-        </Card>
-          <Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Text style={{ color: "blue" }}>Have an account? Login here</Text>
-            </TouchableOpacity>
-          </Text>
-      </KeyboardAwareScrollView>
-    </ThemeProvider>
+    <NativeBaseProvider>
+
+      <VStack p={5} space={3}>
+        <Text mb={15}>{errorList.length ? showInvalidDataList() : <Heading size='md'>Signup to continue</Heading>}</Text>
+
+        <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} size='lg' />
+        <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} size='lg' />
+        <Input placeholder='Gmail address' onChangeText={onChangeEmail} maxLength={35} size='lg' />
+        <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} size='lg' />
+        <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} size='lg' />
+        <Button onPress={onPressSignup} _text={{ fontSize: 20 }} size='lg' colorScheme={'yellow'}>Signup</Button>
+
+        <Box mt={5}>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text>
+              Have an account? <Text bold fontSize={16} color={'orange.700'}>Login here</Text>
+            </Text>
+          </TouchableOpacity>
+        </Box>
+
+      </VStack>
+
+    </NativeBaseProvider>
   )
-}
-const theme = {
-
-  Button: {
-    raised: true,
-    buttonStyle: {
-      height: 60
-    },
-    titleStyle: {
-      fontSize: 20
-    }
-  },
-  Text: {
-    style: {
-      fontSize: 20,
-      padding: 10
-    }
-
-  }
 }
