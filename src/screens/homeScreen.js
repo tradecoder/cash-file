@@ -20,7 +20,7 @@ export default function HomeScreen({ navigation }) {
                             <Center>
                                 <FontAwesome name="plus" size={48} color="green"/>
                                 <Divider m={2}/>
-                                <Text bold>Add money</Text>
+                                <Text bold>Add Money</Text>
                             </Center>
                         </TouchableOpacity>
                     </Box>
@@ -28,8 +28,8 @@ export default function HomeScreen({ navigation }) {
                         <TouchableOpacity onPress={() => navigation.navigate("SendMoney")}>
                             <Center>
                                 <FontAwesome name="send" size={48} color="blue" />
-                                <Divider m={2}/>
-                                <Text bold>Send money</Text>
+                                <Divider m={2} />
+                                <Text bold>Send Money</Text>
                             </Center>
                         </TouchableOpacity>
                     </Box>
