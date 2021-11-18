@@ -12,7 +12,10 @@ export default function AddAccountScreen(props) {
   const accountRef = firebase.firestore().collection('users').doc(uid).collection(`${mobileAccount}-${accountType}`);
   const currentUserProfile = firebase.firestore().collection('users').doc(uid);
   const validMobile = /01[3-9]......../.test(mobileAccount); // valid only for mobile operators in Bangladesh
+  const [filteredAccountList, setFilteredAccountList] = useState([]);
+  const [filterKey, setFilterKey] = useState("");
 
+  
   function onChangeMobileAccount(e) {
     // allow only numbers
     setMobileAccount(e.replace(/[^0-9]/g, ''))
@@ -89,6 +92,18 @@ export default function AddAccountScreen(props) {
 
   }
 
+    // filter the account to help find an existing account
+    function filterAccount(elem) {
+      setFilterKey(elem);
+      if(filterKey.length>5){
+      const x = [...accountList].filter((e) => e.toLowerCase().includes(filterKey.toLowerCase()));
+      setFilteredAccountList(x);
+    } else{
+      setFilteredAccountList([])
+    }
+      setMobileAccount(elem);
+    }
+
   
   return (
     <NativeBaseProvider>
@@ -101,12 +116,16 @@ export default function AddAccountScreen(props) {
         </Box>
         <Box>
           <Text>Account Number</Text>
-          <Input size={'lg'} keyboardType={'numeric'} placeholder="Mobile number" value={mobileAccount} onChangeText={onChangeMobileAccount} maxLength={11} />
+          <Input size={'lg'} keyboardType={'numeric'} placeholder="Mobile number" value={mobileAccount} onChangeText={filterAccount} maxLength={11} />
         </Box>
         <Button size={'lg'} onPress={onPressAddAccount} _text={{ fontSize: 18 }} mt={'5'} colorScheme={'yellow'}>{`Add ${mobileAccount}-${accountType}`}</Button>
-        <Heading size={'sm'} my={2}>Your existing account list :</Heading>
-        <ScrollView>
+        <Heading size={'sm'} my={2}>{filteredAccountList.length?"Found in your account list:":""}</Heading>
+        {/* <ScrollView>
           {accountList.map((e, i) => (<Box key={i} pb={'2'}>{`${i + 1}. ${e}`}</Box>))}
+          <Box h={'400'} w={'100'}></Box>
+        </ScrollView> */}
+        <ScrollView>
+          {filteredAccountList.map((e, i) => (<Box key={i} pb={'3'}>{`${i + 1}. ${e}`}</Box>))}
           <Box h={'400'} w={'100'}></Box>
         </ScrollView>
 

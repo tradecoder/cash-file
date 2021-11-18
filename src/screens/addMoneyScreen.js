@@ -31,9 +31,8 @@ export default function AddMoneyScreen() {
 
 
   function onChangeCustomerAccount(e) {
-    if (e.length > 12) {
-      // for account identifier, one extra digit can be added at the last of mobile number
-      // but if it exceeds the extra identifier it will return to 11 digit mobile number
+    if (e.length > 11) {
+      // allow only 11 digit mobile number
       e = e.slice(0, 11)
     }
     setCustomerAccount(e.replace(/[^0-9]/g, ''))
@@ -106,18 +105,23 @@ export default function AddMoneyScreen() {
         <Divider />
         <Box>
           <Text>Amount</Text>
-          <Input size={'lg'} placeholder="Amount" keyboardType="numeric" value={amount} onChangeText={onChangeAmount} />
+          <Input size={'lg'} placeholder="Amount" keyboardType="numeric" maxLength={8} value={amount} onChangeText={onChangeAmount} />
         </Box>
         <Box>
           <Text >From (customer mobile / name)</Text>
           <Input size={'lg'} placeholder="Customer mobile / name" keyboardType="numeric" value={customerAccount} onChangeText={onChangeCustomerAccount} />
         </Box>
         <Box>
-          <Text>To my account: <Text bold>{myAccount}</Text></Text>
+          <Text>To my account </Text>
+          <Box borderWidth="1" p="3" borderColor="coolGray.200" borderRadius="md">
+            <Text>{myAccount ? myAccount : "No Account Selected"}</Text>
+          </Box>
+        </Box>
+        <Button size={'lg'} _text={{ fontSize: 18 }} mt={'5'} colorScheme={'green'} onPress={onPressAddMoney}>{`Add ${amount > 0 ? amount : 0} Taka`}</Button>
+        <Box>
+          <Heading size={'sm'}>Search and Select an account</Heading>
           <Input size={'lg'} placeholder="My account (Search and Select from the list)" onChangeText={filterAccount} />
         </Box>
-        <Button size={'lg'} _text={{ fontSize: 18 }} mt={'5'} colorScheme={'yellow'} onPress={onPressAddMoney}>{`Add ${amount > 0 ? amount : 0} Taka`}</Button>
-        <Heading size={'sm'}>Select an account from the list</Heading>
         <ScrollView>
           {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => setMyAccount(e)}><Box key={i} pb={'3'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
           <Box h={'400'} w={'100'}></Box>
