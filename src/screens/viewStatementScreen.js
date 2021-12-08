@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ThemeProvider, Text, Input, Button } from 'react-native-elements';
-import { TouchableOpacity, FlatList } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { firebase } from '../firebase/config';
-import { Table, Row, Rows } from 'react-native-table-component';
+import { Table, Row} from 'react-native-table-component';
+import { NativeBaseProvider, VStack, Box, ScrollView, Heading, Divider } from 'native-base';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 ////////////////////////////////////////
 // ignore yellow error 'Warning Each Child '
@@ -41,8 +42,7 @@ export default function ViewStatementScreen() {
         .then((snapshot)=>{
             let contents = [];
             snapshot.forEach((doc)=>{
-                let data = doc.data(); 
-                     
+                let data = doc.data();         
                 
                 // retrieve account data and update accountData state.
                 // we will view data from the accountData
@@ -55,7 +55,6 @@ export default function ViewStatementScreen() {
                         Balance:data.balance               
                     })
                 } 
-
                  if(data.cashOut>0){
                     contents.push({
                         Date:data.createdAt.toDate().toLocaleDateString(),
@@ -63,38 +62,26 @@ export default function ViewStatementScreen() {
                         Client:data.customerAccount,
                         Balance:data.balance
                     })
-                }
-                              
-                
+                }   
             })
             setAccountData(contents);
-            
            
         })
         .catch((err)=>err)
     }
 
 
-    // Generate account list for FlatList
-
-    const showAccountList = (e) => {
-        return (
-            <TouchableOpacity onPress={() => generateStatement(e.item)}>
-                <Text>{`${e.index + 1}. Account: ${e.item}`}</Text>
-            </TouchableOpacity>
-        )
-    }
-    
-
-
-    return (
+   return (
        
-        <ThemeProvider theme={theme}>
+        <NativeBaseProvider>
+            <KeyboardAwareScrollView>
+            <VStack>
                      
              {accountData.length?(
              <>
-             <Text style={{ paddingLeft: 15, paddingTop: 10, paddingBottom:10, fontSize:18, fontWeight:"bold" }}>* Statement for {statementFor} *</Text> 
-             <Table style={{ paddingLeft: 15, paddingTop: 0 }}>
+             <Heading size={'sm'} p='3'>* Statement for {statementFor} *</Heading> 
+             <Divider />
+             <Table style={{ paddingLeft: 15, paddingTop: 2 }}>
                  <Row data={tableHead}/>
                {accountData.map((e)=>{
                     const trxdata = [];
@@ -113,22 +100,15 @@ export default function ViewStatementScreen() {
             </Table>
              </>):(
              <>
-             <Text h4 style={{ paddingLeft: 15, paddingTop: 0 }}>Select an account</Text>
-            <Text style={{ paddingLeft: 15, paddingTop: 0 }}>
-                <FlatList data={accountList} renderItem={showAccountList} keyExtractor={(e, i)=>i.toString()}/>
-            </Text>
+             <Heading size="sm" p='3'>Select an account</Heading>
+             <Divider/>
+            <ScrollView>
+               {accountList.map((e,i)=>(<TouchableOpacity onPress={()=>{ return generateStatement(e)}}><Box key={i} p={3}>{`${i+1}. ${e}`}</Box></TouchableOpacity>))}
+            </ScrollView>
              </>)}
-             
-        </ThemeProvider>
+             </VStack>
+             </KeyboardAwareScrollView>
+        </NativeBaseProvider>
         
     )
-}
-
-
-const theme = {
-    Text:{
-        style:{
-            paddingTop:10
-        }
-    }
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { NativeBaseProvider, VStack, Box, ScrollView, Heading, Divider, Text, Button, Input } from 'native-base';
 import { firebase } from '../firebase/config';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 export default function SendMoneyScreen() {
@@ -24,7 +25,7 @@ export default function SendMoneyScreen() {
 
   function onChangeCustomerAccount(e) {
     if (e.length > 11) {
-    // allow maximum number 11 digit
+      // allow maximum number 11 digit
       e = e.slice(0, 11)
     }
     setCustomerAccount(e.replace(/[^0-9]/g, ''))
@@ -106,34 +107,32 @@ export default function SendMoneyScreen() {
 
   return (
     <NativeBaseProvider>
-      <VStack p="5" space="3">
-        <Heading size="md">Send money</Heading>
-        <Divider />
-        <Box>
-          <Text>Amount</Text>
-          <Input size="lg" placeholder="Amount" keyboardType="numeric" value={amount} maxLength={8} onChangeText={onChangeAmount} />
-        </Box>
-        <Box>
-          <Text>Customer mobile / name</Text>
-          <Input size="lg" placeholder="Customer mobile/ to" keyboardType="numeric" value={customerAccount} maxLength={11} onChangeText={onChangeCustomerAccount} />
-        </Box>
-        <Box>
-          <Text>To my account </Text>
-          <Box borderWidth="1" p="3" borderColor="coolGray.200" borderRadius="md">
-            <Text >{myAccount ? myAccount : "No Account Selected"}</Text>
+      <KeyboardAwareScrollView>
+        <VStack p="5" space="3">
+          <Heading size="md">Send money</Heading>
+          <Divider />
+          <Box>
+            <Text>Amount</Text>
+            <Input size="lg" placeholder="Amount" keyboardType="numeric" value={amount} maxLength={8} onChangeText={onChangeAmount} />
           </Box>
-        </Box>
-        <Button size="lg" _text={{fontSize:18}} colorScheme="blue" onPress={onPressSendMoney}>{`Send ${amount?amount:0} Taka`}</Button>
-        <Box>
-          <Heading size="sm">Search and Select an account:</Heading>
-          <Input size="lg" placeholder="My Account / from (select from the list)" onChangeText={filterAccount} />
-        </Box>
-        <ScrollView>
-          {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => setMyAccount(e)}><Box key={i} pb={'3'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
-          <Box h={'400'} w={'100'}></Box>
-        </ScrollView>
-
-      </VStack>
+          <Box>
+            <Text>Customer mobile / name</Text>
+            <Input size="lg" placeholder="Customer mobile/ to" keyboardType="numeric" value={customerAccount} maxLength={11} onChangeText={onChangeCustomerAccount} />
+          </Box>
+          <Box>
+          <Text>To my account : {myAccount ? myAccount : "No Account Selected"} </Text>            
+          </Box>
+          <Box>
+            
+            <Input size="lg" placeholder="Type, search and select" onChangeText={filterAccount} />
+          </Box>
+          <ScrollView>
+            {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => {setMyAccount(e), setFilteredAccountList([])}}><Box key={i} pb={'3'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
+           
+          </ScrollView>
+          <Button size="lg" _text={{ fontSize: 18 }} colorScheme="blue" onPress={onPressSendMoney}>{`Send ${amount ? amount : 0} Taka`}</Button>
+        </VStack>
+      </KeyboardAwareScrollView>
     </NativeBaseProvider>
   )
 }

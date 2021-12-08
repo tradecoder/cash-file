@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { NativeBaseProvider, VStack, Box, Heading, Text, Button, Input, ScrollView, Divider } from 'native-base';
 import { firebase } from '../firebase/config';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 export default function AddMoneyScreen() {
@@ -100,6 +101,7 @@ export default function AddMoneyScreen() {
 
   return (
     <NativeBaseProvider>
+      <KeyboardAwareScrollView>
       <VStack p={'5'} space={'2'}>
         <Heading size={'md'}>Add money</Heading>
         <Divider />
@@ -112,21 +114,19 @@ export default function AddMoneyScreen() {
           <Input size={'lg'} placeholder="Customer mobile / name" keyboardType="numeric" value={customerAccount} onChangeText={onChangeCustomerAccount} />
         </Box>
         <Box>
-          <Text>To my account </Text>
-          <Box borderWidth="1" p="3" borderColor="coolGray.200" borderRadius="md">
-            <Text>{myAccount ? myAccount : "No Account Selected"}</Text>
-          </Box>
-        </Box>
-        <Button size={'lg'} _text={{ fontSize: 18 }} mt={'5'} colorScheme={'green'} onPress={onPressAddMoney}>{`Add ${amount > 0 ? amount : 0} Taka`}</Button>
-        <Box>
-          <Heading size={'sm'}>Search and Select an account</Heading>
-          <Input size={'lg'} placeholder="My account (Search and Select from the list)" onChangeText={filterAccount} />
+          <Text>To my account : {myAccount ? myAccount : "No Account Selected"} </Text>
+          <Box>
+          <Input size={'lg'} maxLength={20} placeholder="Type, search and select" onChangeText={filterAccount} />
         </Box>
         <ScrollView>
-          {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => setMyAccount(e)}><Box key={i} pb={'3'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
-          <Box h={'400'} w={'100'}></Box>
+          {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => {setMyAccount(e); setFilteredAccountList([])}}><Box key={i} pb={'3'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
+         
         </ScrollView>
+        </Box>
+        <Button size={'lg'} _text={{ fontSize: 18 }} mt={'5'} colorScheme={'green'} onPress={onPressAddMoney}>{`Add ${amount > 0 ? amount : 0} Taka`}</Button>
+        
       </VStack>
+      </KeyboardAwareScrollView>
     </NativeBaseProvider>
   )
 }
