@@ -11,35 +11,7 @@ expo init cash-file
 ```
 
 ## Add Styles
-We will style our app with `react-native-elements`. For documentation visit [React Native Elements](https://reactnativeelements.com/docs/)
-1. Install react-native-elements
-
-```node
-npm install react-native-elements
-```
-2. Install react native vector icons
-
-```node
-npm install react-native-vector-icons
-```
-3. Link the vector icons dependency
-```node
-npx react-native link react-native-vector-icons
-```
-
-4. Install react-native-safe-area-context
-```node
-npm install react-native-safe-area-context
-```
-
-5. Link the safe-area-context
-```node
-react-native link react-native-safe-area-context
-```
-6. Install Keyboard Aware Scrollview. This will help to display the input field up to the keyboard when typing 
-```node
-npm install react-native-keyboard-aware-scrollview
-```
+Styled with native-base
 
 ## Install navigation and screen packages 
 ```node
@@ -58,48 +30,78 @@ npm install react-native-gesture-handler
 7. Now replace all your codes in `App.js` with the following codes for this time only
 
 ```javascript
-import React from 'react';
-import {ThemeProvider, Header,  Text} from 'react-native-elements';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { SignupScreen, LoginScreen, HomeScreen, AddMoneyScreen, SendMoneyScreen, ViewStatementScreen, AddAccountScreen } from './src/screens/screensLib';
+import { firebase } from './src/firebase/config';
+
+////////////////////////////////////////
+// ignore yellow error 'setting a timer'
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Setting a timer']);
+// ignore child element key prop
+LogBox.ignoreLogs(['Warning']);
+/////////////////////////////////////////
+
 const Stack = createStackNavigator();
-// we will keep our header still but scroll the body only if necessary 
-// so, we will add KeyboardAwareScrollView outside the Header
-// to make it available for all components/screens we will add it only on App.js file
-// which will contain/render all other screens. Hence, we do not need to add it on every screen.
+
+
 export default function App() {
-  return(
-    <SafeAreaProvider>
-      <ThemeProvider theme={theme}>
-      <Header
-        placement="left"
-        leftComponent={{ icon: 'menu', color: '#fff'}}
-        centerComponent={{ text: 'Cash File', style: { color: '#fff'} }}
-        rightComponent={{ icon: 'home', color: '#fff' }}
-      />
-      <KeyboardAwareScrollView>
-        <Text>Our app is ready to start with your code</Text>
-      </KeyboardAwareScrollView>
-    </ThemeProvider>
-    </SafeAreaProvider>
-  ) 
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+
+  // if the device has ready-access to firebase because of previous successful login
+  // set the user to firebase uid, this will help to load the app directly the home & other action pages 
+  useEffect(() => {
+    const usersRef = firebase.firestore().collection('users');
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        usersRef.doc(user.uid)
+          .get()
+          .then(doc => {
+            const userData = doc.data()         
+            setUser(userData);
+          })
+          .catch(() => {
+           setLoading(false)
+          });
+      } else {
+       setLoading(false)
+      }
+    });
+  }, []);
+  
+
+
+  // if the user is logged in, display home screen with other action screens
+  // if the user is not logged in, display login screen with signup page navigation
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'orange'}, headerTitleStyle:{color:'black'}, cardStyle:{backgroundColor:'white'} }}>
+        {user?(
+          <>
+          <Stack.Screen name="Home" component={HomeScreen}/>
+          <Stack.Screen name="AddMoney" component={AddMoneyScreen} />
+          <Stack.Screen name="SendMoney" component={SendMoneyScreen}/>          
+          <Stack.Screen name="ViewStatement" component={ViewStatementScreen} />
+          <Stack.Screen name="Account" component={AddAccountScreen} />
+          </>
+
+        ):(
+        <>
+        <Stack.Screen name="Login" component={LoginScreen} />                
+        <Stack.Screen name="Signup" component={SignupScreen} />
+        
+        </>
+         )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
-const theme = {
-  Header:{
-    leftComponent:{size:30},
-    centerComponent:{
-      style:{fontSize:26}
-    },
-    rightComponent:{size:30}
-  },
-  Button: {raised: true},
-  Text:{
-    style:{fontSize:22}
-  }
-};
 ```
 
 5. Run your app and see if it's ok. You must have installed latest android emulator (Android Virtual Device- AVD) on your system. If you don't have, see the instruction [here]("#")
@@ -162,146 +164,246 @@ const firebaseConfig = {
 7. Then paste/replace the code to the `config.js` for the `const firebaseConfig={}`
 
 ## Create Screen components
-1. Create a folder named `screens` inside the `src` folder
-2. Create a file named `signup.js` inside the `screens` folder
-3. Add the below code to `signup.js`
+Create required Screens
+
+
+## Signup screen
 
 ```javascript
-import React, {useState} from 'react';
-import {ThemeProvider, Text, Input, Button} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {TouchableOpacity} from 'react-native';
-import {firebase} from '../firebase/config';
+import React, { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
+import { firebase } from '../firebase/config';
+import { NativeBaseProvider, VStack, Heading, Box, Text, Input, Button } from 'native-base';
 
-
-export default function Signup({nav}){
-  const [firstName, setFirstName]= useState("");
-  const [lastName, setLastName] =  useState("");
+export default function SignupScreen({ navigation }) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
-  const [errorList, setErrorList] =  useState([]);
-  const validFirstName = /../.test(firstName);
-  const validLastName = /../.test(lastName);
-  const validEmail = /.....@gmail.com/.test(email);
-  const validMobile = /01[3-9]......../.test(mobile);
-  const validPassword =()=> {
-    if((/......../).test(password) 
-    && (/[A-Z]/).test(password)
-    && (/[a-z]/).test(password)
-    && (/[0-9]/).test(password)){
+  const [errorList, setErrorList] = useState([]);
+  const validFirstName = /../.test(firstName);  // minimum 2 chars
+  const validLastName = /../.test(lastName); // minimum 2 chars
+  const validEmail = /.....@gmail.com/.test(email); // only gmail accepted
+  const validMobile = /01[3-9]......../.test(mobile); // valid only for mobile operators in Bangladesh
+  const validPassword = () => {
+    // minimum 8 digit password with uppercase, lowercase and numbers pattern
+    if ((/......../).test(password)
+      && (/[A-Z]/).test(password)
+      && (/[a-z]/).test(password)
+      && (/[0-9]/).test(password)) {
       return true;
-    } else{
+    } else {
       return false;
     }
-    }
-
-    // Check if all data is valid
-    const isDataValid = ()=>{
-      if(validFirstName && validLastName && validEmail && validMobile && validPassword()){
-        return true;
-      } else {
-        return false
-      }
-    }
-  
-    // On change input event handlers 
-  function onChangeFirstName(e){
-    setFirstName(e.replace(/[^A-Za-z]/g, ''));
-   }
-  function onChangeLastName(e){
-    setLastName(e.replace(/[^A-Za-z]/g, '')); 
   }
-  function onChangeEmail(e){
+
+  // Check if all data is valid
+  const isDataValid = () => {
+    if (validFirstName && validLastName && validEmail && validMobile && validPassword()) {
+      return true;
+    } else {
+      return false
+    }
+  }
+
+  // On change input event handlers 
+  function onChangeFirstName(e) {
+    setFirstName(e.replace(/[^A-Za-z]/g, ''));
+  }
+  function onChangeLastName(e) {
+    setLastName(e.replace(/[^A-Za-z]/g, ''));
+  }
+  function onChangeEmail(e) {
     setEmail(e)
   }
-  function onChangeMobile(e){    
-    setMobile(e.replace(/[^0-9]/g, ''));  
+  function onChangeMobile(e) {
+    setMobile(e.replace(/[^0-9]/g, ''));
   }
-  function onChangePassword(e){
+  function onChangePassword(e) {
     setPassword(e);
   }
 
   // check invalid input data and make a list of them
-  function inputDataCheckPoint(){
+  function inputDataCheckPoint() {
 
-    let invalidData =[];
-    if(!validFirstName){
-      invalidData.push("Invalid first name")     
+    let invalidData = [];
+    if (!validFirstName) {
+      invalidData.push("Invalid first name")
     }
-    if(!validLastName){
-      invalidData.push("Invalid last name")  
+    if (!validLastName) {
+      invalidData.push("Invalid last name")
     }
-    if(!validEmail){
-      invalidData.push("Invalid gmail address") 
+    if (!validEmail) {
+      invalidData.push("Invalid gmail address")
     }
 
-    if(!validMobile){
-      invalidData.push("Invalid mobile number") 
+    if (!validMobile) {
+      invalidData.push("Invalid mobile number")
     }
-    if(!validPassword()){
-      invalidData.push("Use password longer than 8, combining capital and small letters and numbers")    
+    if (!validPassword()) {
+      invalidData.push("Use password longer than 8, combining capital and small letters and numbers")
     }
     setErrorList(invalidData);
   }
 
   // Show list of invaid input data if any
-  function showInvalidDataList(){  
-    return (errorList.map((e,i)=>{
-      return(<Text key={i} style={{color:"red"}}>{i+1}. {e}.{"\n"}</Text>)
+  function showInvalidDataList() {
+    return (errorList.map((e, i) => {
+      return (<Text key={i} style={{ color: "red" }}>{i + 1}. {e}.{"\n"}</Text>)
     }))
-  } 
+  }
 
   // Send data to firebase if all information is given
   // if not, send error alert and a list of invalid input
 
-  function onPressSignup(){
-    
+  function onPressSignup() {
+
     //check and send input error if any
     inputDataCheckPoint();
 
     // send data to firebase if everything is ok
-    if(isDataValid()){          
-          firebase.auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then(response=>{
-            const uid = response.user.uid;
-            const data = {_id:uid, firstName, lastName, email, mobile};
-      
-            const usersRef= firebase.firestore().collection('users');
-            usersRef.doc(uid)
-            .set(data)
-            .then(()=>{
-              alert("success");
-              nav.navigate("Home", {user:data})
-            })
-            .catch(()=>alert("System Error! Please try again later."))
-          })
-          .catch(()=>alert("Could not connect to server! Please try again later"))
-        }else{
-          alert("Please provide correct information!")
-        }
-  } 
+    if (isDataValid()) {
+      firebase.auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(response => {
+          const uid = response.user.uid;
+          const data = { _id: uid, firstName, lastName, email, mobile, accountList: [] };
+          console.log(data);
 
-  return(
-    <ThemeProvider>
-      <Text h2>Please Signup</Text>
-      <Text>{showInvalidDataList()}</Text>
-      <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} />
-      <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} />
-      <Input placeholder='Gmail address' onChangeText={onChangeEmail} maxLength={35} leftIcon={{ type: 'font-awesome', name:'envelope' }}/>
-      <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} leftIcon={{ type: 'font-awesome', name:'phone' }}/>
-      <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} leftIcon={{ type: 'font-awesome', name:'lock'}}/>  
-      <Button title="Signup" onPress={onPressSignup}/>
-      <Text>
-        <Text> Have an account?</Text>
-        <TouchableOpacity onPress={()=>nav.navigate("Login")}>
-          <Text style={{color:"blue"}}> Login here</Text>
-        </TouchableOpacity>                
-      </Text>      
-    </ThemeProvider>  
+          const usersRef = firebase.firestore().collection('users');
+          usersRef.doc(uid)
+            .set(data)
+            .then((e) => {
+              alert("success");
+              navigation.navigate("Home", { user: data })
+            })
+            .catch(() => alert("System Error! Please try again later."))
+        })
+        .catch(() => alert("Could not connect to server! Please try again later"))
+    } else {
+      alert("Please provide correct information!")
+    }
+  }
+
+  return (
+    <NativeBaseProvider>
+
+      <VStack p={5} space={3}>
+        <Text mb={15}>{errorList.length ? showInvalidDataList() : <Heading size='md'>Signup to continue</Heading>}</Text>
+
+        <Input placeholder='First name' value={firstName} onChangeText={onChangeFirstName} size='lg' />
+        <Input placeholder='Last name' value={lastName} onChangeText={onChangeLastName} size='lg' />
+        <Input placeholder='Gmail address' onChangeText={onChangeEmail} maxLength={35} size='lg' />
+        <Input placeholder='Mobile number' value={mobile} keyboardType="number-pad" maxLength={11} onChangeText={onChangeMobile} size='lg' />
+        <Input placeholder='Password' onChangeText={onChangePassword} secureTextEntry={true} size='lg' />
+        <Button onPress={onPressSignup} _text={{ fontSize: 20 }} size='lg' colorScheme={'yellow'}>Signup</Button>
+
+        <Box mt={5}>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text>
+              Have an account? <Text bold fontSize={16} color={'orange.700'}>Login here</Text>
+            </Text>
+          </TouchableOpacity>
+        </Box>
+
+      </VStack>
+
+    </NativeBaseProvider>
   )
 }
+```
+
+## Login screen
+
+```javascript
+
+import React, { useState } from 'react';
+import { NativeBaseProvider, VStack, Icon, Heading, Box, Text, Input, Button } from 'native-base';
+import { TouchableOpacity } from 'react-native';
+import { firebase } from '../firebase/config';
+import { MaterialIcons } from "@expo/vector-icons"
+
+// ignore yellow error for setting a timer...
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Setting a timer']);
+
+
+// app login
+export default function LoginScreen({ navigation }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    function onChangeEmail(e) {
+        setEmail(e)
+    }
+
+    function onChangePassword(e) {
+        setPassword(e)
+    }
+
+    function onPressLogin() {
+        firebase.auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(response => {
+                const uid = response.user.uid;
+                const usersRef = firebase.firestore().collection("users");
+                usersRef.doc(uid)
+                    .get()
+                    .then(firebaseData => {
+                        if (!firebaseData.exists) {
+                            alert("No record found! Try with another email");
+                            return;
+                        }
+                        const user = firebaseData.data();
+                        //navigate to Home page and send user data
+                        navigation.navigate("Home", { user });
+                    })
+                    .catch(err => alert(err))
+            })
+            .catch(err => alert(err))
+
+    }
+
+    return (
+        <NativeBaseProvider>
+            <VStack p={5} flex={1} space={4}>
+                <Heading size={'md'} mb={15}>Login to continue</Heading>
+
+                <Input placeholder='Gmail address' onChangeText={onChangeEmail} value={email} maxLength={35} size={'lg'}
+                    InputLeftElement={
+                        <Icon
+                            as={<MaterialIcons name="email" />}
+                            size={7}
+                            ml="2"
+                            color="yellow.500"
+                        />
+                    } />
+                <Input placeholder='Password / max 24' onChangeText={onChangePassword} value={password} secureTextEntry={true} maxLength={24} size={'lg'}
+                    InputLeftElement={
+                        <Icon
+                            as={<MaterialIcons name="lock" />}
+                            size={7}
+                            ml="2"
+                            color="yellow.500"
+                        />
+                    } />
+                <Button onPress={onPressLogin} size={'lg'} colorScheme={'yellow'} mt={8} _text={{fontSize:20}}>Login</Button>
+
+                <Box mt={5}>                    
+                        <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+
+                            <Text>
+                                Not registered? <Text bold color={'orange.700'} fontSize={16}>Signup</Text>
+                            </Text>
+
+                        </TouchableOpacity>                    
+                </Box>
+            </VStack>
+        </NativeBaseProvider>
+    )
+}
+
 ```
 
 
