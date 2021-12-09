@@ -30,41 +30,41 @@ export default function App() {
         usersRef.doc(user.uid)
           .get()
           .then(doc => {
-            const userData = doc.data()         
+            const userData = doc.data()
             setUser(userData);
           })
           .catch(() => {
-           setLoading(false)
+            setLoading(false)
           });
       } else {
-       setLoading(false)
+        setLoading(false)
       }
     });
   }, []);
-  
+
 
 
   // if the user is logged in, display home screen with other action screens
   // if the user is not logged in, display login screen with signup page navigation
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'orange'}, headerTitleStyle:{color:'black'}, cardStyle:{backgroundColor:'white'} }}>
-        {user?(
+      <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'orange' }, headerTitleStyle: { color: 'black' }, cardStyle: { backgroundColor: 'white' } }}>
+        {user ? (
           <>
-          <Stack.Screen name="Home" component={HomeScreen}/>
-          <Stack.Screen name="AddMoney" component={AddMoneyScreen} />
-          <Stack.Screen name="SendMoney" component={SendMoneyScreen}/>          
-          <Stack.Screen name="ViewStatement" component={ViewStatementScreen} />
-          <Stack.Screen name="Account" component={AddAccountScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
+            <Stack.Screen name="AddMoney" component={AddMoneyScreen} options={{ title: "Add money" }} />
+            <Stack.Screen name="SendMoney" component={SendMoneyScreen} options={{ title: "Send money" }} />
+            <Stack.Screen name="ViewStatement" component={ViewStatementScreen} options={{ title: "View statement" }} />
+            <Stack.Screen name="Account" component={AddAccountScreen} options={{ title: "Add accounts" }} />
           </>
 
-        ):(
-        <>
-        <Stack.Screen name="Login" component={LoginScreen} />                
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        
-        </>
-         )}
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} options={{ title: "Login" }} />
+            <Stack.Screen name="Signup" component={SignupScreen} options={{ title: "Sign up" }} />
+
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

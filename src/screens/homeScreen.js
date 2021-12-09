@@ -5,8 +5,8 @@ import { firebase } from '../firebase/config';
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from '@expo/vector-icons';
 
-export default function HomeScreen({ navigation }) {
-    const uid = firebase.auth().currentUser.uid;
+export default function HomeScreen({ navigation:{navigate} }) {
+    // const uid = firebase.auth().currentUser.uid;
 
 
     return (
@@ -16,7 +16,7 @@ export default function HomeScreen({ navigation }) {
                 <Divider m={5} />
                 <SimpleGrid columns={2} space={10}>
                     <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
-                        <TouchableOpacity onPress={() => navigation.navigate("AddMoney")}>
+                        <TouchableOpacity onPress={() => navigate("AddMoney")}>
                             <Center>
                                 <FontAwesome name="plus" size={48} color="green"/>
                                 <Divider m={2}/>
@@ -25,7 +25,7 @@ export default function HomeScreen({ navigation }) {
                         </TouchableOpacity>
                     </Box>
                     <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
-                        <TouchableOpacity onPress={() => navigation.navigate("SendMoney")}>
+                        <TouchableOpacity onPress={() => navigate("SendMoney")}>
                             <Center>
                                 <FontAwesome name="send" size={48} color="blue" />
                                 <Divider m={2} />
@@ -34,7 +34,7 @@ export default function HomeScreen({ navigation }) {
                         </TouchableOpacity>
                     </Box>
                     <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
-                        <TouchableOpacity onPress={() => navigation.navigate("ViewStatement")}>
+                        <TouchableOpacity onPress={() => navigate("ViewStatement")}>
                             <Center>
                                 <FontAwesome name="book" size={48} color="dodgerblue" />
                                 <Divider m={2}/>
@@ -43,7 +43,7 @@ export default function HomeScreen({ navigation }) {
                         </TouchableOpacity>
                     </Box>
                     <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
-                        <TouchableOpacity onPress={() => navigation.navigate("Account")}>
+                        <TouchableOpacity onPress={() => navigate("Account")}>
                             <Center>
                                 <FontAwesome name="gear" size={48} color="orange" />
                                 <Divider m={2}/>
