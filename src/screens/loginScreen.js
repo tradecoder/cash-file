@@ -22,6 +22,8 @@ export default function LoginScreen({ navigation }) {
         setPassword(e)
     }
 
+    
+     // on successful login, users will see homeScreen based on code on app.js
     function onPressLogin() {
         firebase.auth()
             .signInWithEmailAndPassword(email, password)
@@ -35,9 +37,6 @@ export default function LoginScreen({ navigation }) {
                             alert("No record found! Try with another email");
                             return;
                         }
-                        const user = firebaseData.data();
-                        //navigate to Home page
-                        navigation.navigate("Home");
                     })
                     .catch(err => alert(err))
             })

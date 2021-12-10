@@ -269,14 +269,14 @@ export default function SignupScreen({ navigation }) {
         .then(response => {
           const uid = response.user.uid;
           const data = { _id: uid, firstName, lastName, email, mobile, accountList: [] };
-          console.log(data);
+         // console.log(data);
 
           const usersRef = firebase.firestore().collection('users');
           usersRef.doc(uid)
             .set(data)
             .then((e) => {
               alert("success");
-              navigation.navigate("Home", { user: data })
+              navigation.navigate("Home")
             })
             .catch(() => alert("System Error! Please try again later."))
         })

@@ -84,6 +84,7 @@ export default function SignupScreen({ navigation }) {
 
   // Send data to firebase if all information is given
   // if not, send error alert and a list of invalid input
+  // on successful signup/login, users will see homeScreen based on code on app.js
 
   function onPressSignup() {
 
@@ -104,7 +105,6 @@ export default function SignupScreen({ navigation }) {
             .set(data)
             .then((e) => {
               alert("success");
-              navigation.navigate("Home")
             })
             .catch(() => alert("System Error! Please try again later."))
         })
@@ -134,7 +134,6 @@ export default function SignupScreen({ navigation }) {
             </Text>
           </TouchableOpacity>
         </Box>
-
       </VStack>
 
     </NativeBaseProvider>

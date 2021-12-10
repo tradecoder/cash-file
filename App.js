@@ -52,10 +52,10 @@ export default function App() {
         {user ? (
           <>
             <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
-            <Stack.Screen name="AddMoney" component={AddMoneyScreen} options={{ title: "Add money" }} />
-            <Stack.Screen name="SendMoney" component={SendMoneyScreen} options={{ title: "Send money" }} />
-            <Stack.Screen name="ViewStatement" component={ViewStatementScreen} options={{ title: "View statement" }} />
-            <Stack.Screen name="Account" component={AddAccountScreen} options={{ title: "Add accounts" }} />
+            <Stack.Screen name="AddMoney" component={AddMoneyScreen} options={{ title: "Add money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'#28B463'} }} />
+            <Stack.Screen name="SendMoney" component={SendMoneyScreen} options={{ title: "Send money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'red'} }} />
+            <Stack.Screen name="ViewStatement" component={ViewStatementScreen} options={{ title: "View Statement", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'dodgerblue'} }}/>
+            <Stack.Screen name="Account" component={AddAccountScreen} options={{ title: "Add Accounts", headerTitleAlign:"center" }} />
           </>
 
         ) : (

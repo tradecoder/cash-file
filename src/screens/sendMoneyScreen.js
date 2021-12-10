@@ -130,7 +130,7 @@ export default function SendMoneyScreen() {
             {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => {setMyAccount(e), setFilteredAccountList([])}}><Box key={i} pb={'3'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
            
           </ScrollView>
-          <Button size="lg" _text={{ fontSize: 18 }} colorScheme="blue" onPress={onPressSendMoney}>{`Send ${amount ? amount : 0} Taka`}</Button>
+          <Button size="lg" _text={{ fontSize: 18 }} colorScheme="red" onPress={onPressSendMoney}>{`Send ${amount ? amount : 0} Taka`}</Button>
         </VStack>
       </KeyboardAwareScrollView>
     </NativeBaseProvider>

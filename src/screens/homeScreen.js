@@ -1,13 +1,11 @@
 import React from 'react';
-import { NativeBaseProvider, Heading, Box, Text, Center, VStack, HStack, IconButton, Icon, SimpleGrid, Divider } from 'native-base';
+import { NativeBaseProvider, Heading, Box, Text, Center, SimpleGrid, Divider } from 'native-base';
 import { TouchableOpacity, BackHandler } from 'react-native';
-import { firebase } from '../firebase/config';
 import { FontAwesome } from "@expo/vector-icons";
-import { AntDesign } from '@expo/vector-icons';
+
 
 export default function HomeScreen({ navigation:{navigate} }) {
-    // const uid = firebase.auth().currentUser.uid;
-
+ 
 
     return (
         <NativeBaseProvider>
@@ -27,7 +25,7 @@ export default function HomeScreen({ navigation:{navigate} }) {
                     <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
                         <TouchableOpacity onPress={() => navigate("SendMoney")}>
                             <Center>
-                                <FontAwesome name="send" size={48} color="blue" />
+                                <FontAwesome name="send" size={48} color="red" />
                                 <Divider m={2} />
                                 <Text bold>Send Money</Text>
                             </Center>
