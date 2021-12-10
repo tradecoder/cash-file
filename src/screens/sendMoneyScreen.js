@@ -76,6 +76,7 @@ export default function SendMoneyScreen() {
           setAmount("");
           setMyAccount("");
           setCustomerAccount("");
+          setFilterKey("");
           setBalance("");
 
         })
@@ -109,25 +110,25 @@ export default function SendMoneyScreen() {
     <NativeBaseProvider>
       <KeyboardAwareScrollView>
         <VStack p="5" space="3">
-          <Heading size="md">Send money</Heading>
+          <Heading size="md">Send / Lend money</Heading>
           <Divider />
           <Box>
-            <Text>Amount</Text>
+            <Text>Amount:</Text>
             <Input size="lg" placeholder="Amount" keyboardType="numeric" value={amount} maxLength={8} onChangeText={onChangeAmount} />
           </Box>
           <Box>
-            <Text>Customer mobile / name</Text>
+            <Text>Customer mobile:</Text>
             <Input size="lg" placeholder="Customer mobile/ to" keyboardType="numeric" value={customerAccount} maxLength={11} onChangeText={onChangeCustomerAccount} />
           </Box>
           <Box>
-          <Text>To my account : {myAccount ? myAccount : "No Account Selected"} </Text>            
+          <Text>From (Main Account) : {myAccount ? myAccount : "No Account Selected"} </Text>            
           </Box>
           <Box>
             
-            <Input size="lg" placeholder="Type, search and select" onChangeText={filterAccount} />
+            <Input size="lg" placeholder="Type, search and select" maxLength={20} value={filterKey} onChangeText={filterAccount} />
           </Box>
           <ScrollView>
-            {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => {setMyAccount(e), setFilteredAccountList([])}}><Box key={i} pb={'3'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
+            {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => {setMyAccount(e), setFilteredAccountList([]), setFilterKey(e)}}><Box key={i} p={'2'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
            
           </ScrollView>
           <Button size="lg" _text={{ fontSize: 18 }} colorScheme="red" onPress={onPressSendMoney}>{`Send ${amount ? amount : 0} Taka`}</Button>

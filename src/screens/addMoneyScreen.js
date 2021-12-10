@@ -71,6 +71,7 @@ export default function AddMoneyScreen() {
           setAmount("");
           setMyAccount("");
           setCustomerAccount("");
+          setFilterKey("");
           currentAccountBalance()
 
         })
@@ -99,27 +100,29 @@ export default function AddMoneyScreen() {
       .catch((err) => err);
   }, []);
 
+
+
   return (
     <NativeBaseProvider>
       <KeyboardAwareScrollView>
       <VStack p={'5'} space={'2'}>
-        <Heading size={'md'}>Add money</Heading>
+        <Heading size={'md'}>Add/ Receive money</Heading>
         <Divider />
         <Box>
-          <Text>Amount</Text>
+          <Text>Amount:</Text>
           <Input size={'lg'} placeholder="Amount" keyboardType="numeric" maxLength={8} value={amount} onChangeText={onChangeAmount} />
         </Box>
         <Box>
-          <Text >From (customer mobile / name)</Text>
-          <Input size={'lg'} placeholder="Customer mobile / name" keyboardType="numeric" value={customerAccount} onChangeText={onChangeCustomerAccount} />
+          <Text >From (customer mobile):</Text>
+          <Input size={'lg'} placeholder="Customer mobile" keyboardType="numeric" value={customerAccount} maxLength={11} onChangeText={onChangeCustomerAccount} />
         </Box>
         <Box>
-          <Text>To my account : {myAccount ? myAccount : "No Account Selected"} </Text>
+          <Text>To (main account) : {myAccount ? myAccount : "No Account Selected"} </Text>
           <Box>
-          <Input size={'lg'} maxLength={20} placeholder="Type, search and select" onChangeText={filterAccount} />
+          <Input size={'lg'} maxLength={20} placeholder="Type, search and select" value={filterKey} onChangeText={filterAccount} />
         </Box>
         <ScrollView>
-          {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => {setMyAccount(e); setFilteredAccountList([])}}><Box key={i} pb={'3'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
+          {filteredAccountList.map((e, i) => (<TouchableOpacity onPress={() => {setMyAccount(e); setFilteredAccountList([]), setFilterKey(e)}}><Box key={i} p={'2'}>{`${i + 1}. ${e}`}</Box></TouchableOpacity>))}
          
         </ScrollView>
         </Box>

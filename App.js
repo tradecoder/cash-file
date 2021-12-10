@@ -53,7 +53,7 @@ export default function App() {
           <>
             <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
             <Stack.Screen name="AddMoney" component={AddMoneyScreen} options={{ title: "Add money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'#28B463'} }} />
-            <Stack.Screen name="SendMoney" component={SendMoneyScreen} options={{ title: "Send money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'red'} }} />
+            <Stack.Screen name="SendMoney" component={SendMoneyScreen} options={{ title: "Send money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'#F5311C'} }} />
             <Stack.Screen name="ViewStatement" component={ViewStatementScreen} options={{ title: "View Statement", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'dodgerblue'} }}/>
             <Stack.Screen name="Account" component={AddAccountScreen} options={{ title: "Add Accounts", headerTitleAlign:"center" }} />
           </>
@@ -62,7 +62,6 @@ export default function App() {
           <>
             <Stack.Screen name="Login" component={LoginScreen} options={{ title: "Login" }} />
             <Stack.Screen name="Signup" component={SignupScreen} options={{ title: "Sign up" }} />
-
           </>
         )}
       </Stack.Navigator>

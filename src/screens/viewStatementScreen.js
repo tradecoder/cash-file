@@ -103,7 +103,7 @@ export default function ViewStatementScreen() {
              <Heading size="sm" p='3'>Select an account</Heading>
              <Divider/>
             <ScrollView>
-               {accountList.map((e,i)=>(<TouchableOpacity onPress={()=>{ return generateStatement(e)}}><Box key={i} p={3}>{`${i+1}. ${e}`}</Box></TouchableOpacity>))}
+               {accountList.map((e,i)=>(<TouchableOpacity onPress={()=>{ return generateStatement(e)}}><Box key={i} p={2}>{`${i+1}. ${e}`}</Box></TouchableOpacity>))}
             </ScrollView>
              </>)}
              </VStack>
