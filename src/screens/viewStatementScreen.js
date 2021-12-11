@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { firebase } from '../firebase/config';
-import { Table, Row} from 'react-native-table-component';
+import { Table, Row, TableWrapper} from 'react-native-table-component';
 import { NativeBaseProvider, VStack, Box, ScrollView, Heading, Divider } from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 ////////////////////////////////////////
 // ignore yellow error 'Warning Each Child '
 import { LogBox } from 'react-native';
+import { textAlign } from 'styled-system';
 
 LogBox.ignoreLogs(['Warning']);
 ///////////////////////////////////////
@@ -18,7 +19,7 @@ export default function ViewStatementScreen() {
     const [accountData, setAccountData] = useState([]);
     const [accountList, setAccountList] = useState([]);
     const [statementFor, setStatementFor] = useState("");
-    const tableHead = ["Date", "Client", "Received", "Sent", "C.Balance"];
+    const tableHead = ["Date", "Client", "Received", "Sent", "Balance"];
  
 
     const currentUserProfile = firebase.firestore().collection("users").doc(uid);   
@@ -80,10 +81,11 @@ export default function ViewStatementScreen() {
              {accountData.length?(
              <>
              <Heading size={'sm'} p='3'>* Statement for {statementFor} *</Heading> 
-             <Divider />
-             <Table style={{ paddingLeft: 15, paddingTop: 2 }}>
-                 <Row data={tableHead}/>
-               {accountData.map((e)=>{
+        
+             <Table style={{ padding:5}} borderStyle={{borderWidth:1, borderColor:'silver'}}>
+                 <Row data={tableHead} flexArr={[1,1.5,1,1,1]} style={{height:35, backgroundColor:'pink'}} textStyle={{textAlign:'center', fontWeight:'bold'}}/>
+                 <TableWrapper style={{flex:1}}>
+               {accountData.map((e, i)=>{
                     const trxdata = [];
                     // trxdata -- transaction data
                     trxdata.push(e.Date)
@@ -93,10 +95,11 @@ export default function ViewStatementScreen() {
                     trxdata.push(e.Balance)
                    
                     return (
-                        <Row data={trxdata}/>
+                        <Row data={trxdata} flexArr={[1,1.5,1,1,1]} style={[{height:25},i%2 && {backgroundColor: '#EBF5FB'}]} textStyle={{textAlign:'right'}} />
                     )
 
                 })}
+                </TableWrapper>
             </Table>
              </>):(
              <>

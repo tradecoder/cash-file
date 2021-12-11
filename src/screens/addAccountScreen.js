@@ -109,7 +109,7 @@ export default function AddAccountScreen(props) {
     <NativeBaseProvider>
 
       <VStack p={5} space={3}>
-        <Heading size={'md'} mb={5}>Add an account</Heading>
+        <Heading size={'md'} mb={5}>Add / create an account</Heading>
         <Box>
           <Text>Account Name</Text>
           <Input size={'lg'} placeholder="Name / company name" keyboardType={'default'} maxLength={13} value={accountType} onChangeText={onChangeAccountType} />
