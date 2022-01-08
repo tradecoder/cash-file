@@ -22,6 +22,7 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
+    "react-native-modal-datetime-picker": "^13.0.1",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "^3.3.0",
     "react-native-svg": "12.1.0",

@@ -59,7 +59,7 @@ export default function HomeScreen({ navigation:{navigate} }) {
                         </TouchableOpacity>
                     </Box>
                     <Box size={120} rounded='lg' pt={4} borderWidth={1} borderRadius='xl'>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>navigate('Help')}>
                             <Center>
                                 <FontAwesome name="info" size={48} color="blue" />
                                 <Divider m={2}/>

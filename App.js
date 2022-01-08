@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { SignupScreen, LoginScreen, HomeScreen, AddMoneyScreen, SendMoneyScreen, ViewStatementScreen, AddAccountScreen } from './src/screens/screensLib';
+import { SignupScreen, LoginScreen, HomeScreen, AddMoneyScreen, SendMoneyScreen, ViewStatementScreen, AddAccountScreen, HelpScreen } from './src/screens/screensLib';
 import { firebase } from './src/firebase/config';
 
 ////////////////////////////////////////
@@ -51,11 +51,12 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'orange' }, headerTitleStyle: { color: 'black' }, cardStyle: { backgroundColor: 'white' } }}>
         {user ? (
           <>
-            <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
+            <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Cash File", headerTitleAlign:"center" }} />
             <Stack.Screen name="AddMoney" component={AddMoneyScreen} options={{ title: "Add money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'#28B463'} }} />
             <Stack.Screen name="SendMoney" component={SendMoneyScreen} options={{ title: "Send money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'#F5311C'} }} />
             <Stack.Screen name="ViewStatement" component={ViewStatementScreen} options={{ title: "View Statement", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'dodgerblue'} }}/>
             <Stack.Screen name="Account" component={AddAccountScreen} options={{ title: "Add Accounts", headerTitleAlign:"center" }} />
+            <Stack.Screen name="Help" component={HelpScreen}/>
           </>
 
         ) : (
