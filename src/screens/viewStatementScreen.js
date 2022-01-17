@@ -114,17 +114,17 @@ export default function ViewStatementScreen() {
                             <HStack flex={'1'} justifyContent={'space-between'} pl={'2'} pr={'2'} >
                                 <Box>
                                     <HStack flex={'1'}>
-                                        <Button onPress={onPressPastOpeningDays}>-</Button>
+                                        <Button onPress={onPressPastOpeningDays} colorScheme='warning'>{'<|'}</Button>
                                         <Button>{new Date(openingDate).toISOString().slice(0, 10)}</Button>
-                                        <Button onPress={onPressCloserOpeningDays}>+</Button>
+                                        <Button onPress={onPressCloserOpeningDays} colorScheme='warning'>{'|>'}</Button>
                                     </HStack>
                                 </Box>
                                 <Box alignItems={'center'} alignSelf={'center'}>TO</Box>
                                 <Box>
                                     <HStack flex={'1'}>
-                                        <Button onPress={onPressPastClosingDays}>-</Button>
+                                        <Button onPress={onPressPastClosingDays} colorScheme='warning'>{'<|'}</Button>
                                         <Button>{new Date(closingDate).toISOString().slice(0, 10)}</Button>
-                                        <Button onPress={onPressRecentClosingDays}>+</Button>
+                                        <Button onPress={onPressRecentClosingDays} colorScheme='warning'>{'|>'}</Button>
                                     </HStack>
                                 </Box>
                             </HStack>
