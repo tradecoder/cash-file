@@ -1,13 +1,12 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "homepage":"https://tradecoder.github.com/cash-file",
-  "scripts": {
+   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject"
-  },
+    },
   "dependencies": {
     "@react-native-community/datetimepicker": "3.2.0",
     "@react-navigation/native": "^5.9.4",
@@ -35,8 +34,8 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "gh-pages": "^3.2.3"
+    "@babel/core": "^7.9.0"
+    
   },
   "private": true
 }
