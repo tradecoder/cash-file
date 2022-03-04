@@ -63,7 +63,7 @@ export default function HomeScreen({ navigation:{navigate} }) {
                             <Center>
                                 <FontAwesome name="info" size={48} color="blue" />
                                 <Divider m={2}/>
-                                <Text bold>Help</Text>
+                                <Text bold>Help/Privacy</Text>
                             </Center>
                         </TouchableOpacity>
                     </Box>

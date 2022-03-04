@@ -16,7 +16,6 @@ import '@firebase/firestore';
 //   };
 
 
-
 if(!firebase.apps.length){
   firebase.initializeApp(firebaseConfig)
 }else {
