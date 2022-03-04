@@ -1,9 +1,11 @@
 {
-    "projectName":"cash file",
+    "projectName":"Cash File",
     "developer":{
         "name":"Mamun Abdullah",
         "id":"tradecoder",
-        "url":"https://tradecoder.com"
+        "url":"https://tradecoder.com",
+        "country":"Bangladesh",
+        "city":"Dhaka"     
     },
     "contact":{
         "email":"",
