@@ -56,7 +56,7 @@ export default function App() {
             <Stack.Screen name="SendMoney" component={SendMoneyScreen} options={{ title: "Send money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'#F5311C'} }} />
             <Stack.Screen name="ViewStatement" component={ViewStatementScreen} options={{ title: "View Statement", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'dodgerblue'} }}/>
             <Stack.Screen name="Account" component={AddAccountScreen} options={{ title: "Add Accounts", headerTitleAlign:"center" }} />
-            <Stack.Screen name="Help" component={HelpScreen}/>
+            <Stack.Screen name="Help" component={HelpScreen} options={{ title: "Privacy Policy + Helpline", headerTitleAlign:"center" }}/>
           </>
 
         ) : (
