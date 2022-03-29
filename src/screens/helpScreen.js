@@ -21,6 +21,11 @@ export default function HelpScreen() {
                             applicable for you automatically without any further notice.
 
                         </Text>
+                        <Heading size='sm'>গোপনীয়তা নীতি ও সতর্কতা</Heading>
+                        <Text>এই এ্য্যপ শুধুমাত্র ব্যবহারকারীর দাখিলকৃত তথ্য ধারন করে।
+                            এটি কোনভাবেই কোন আইনগত বা বিচারিক বিষয়ের পক্ষে বা বিপক্ষের প্রমানপত্র হিসাবে বিবেচিত হবেনা।
+                            
+                        </Text>
                     </Box>
                     <Divider />
                     <Heading size='sm'>Helpline</Heading>
@@ -30,6 +35,7 @@ export default function HelpScreen() {
                             You can keep your Personal or Business financial records here. Specially designed for
                             Mobile banking transaction records for agents or shop owners.
                         </Text>
+                        <Heading size='sm'>এ্য্যপ এর ব্যবহার</Heading>
                         <Text>
                             এই এ্যাপের মাধ্যমে আপনার ব্যক্তিগত ও ব্যবসায়িক লেনদেনের তথ্য সংরক্ষণ করতে পারেন। তবে এটি মোবাইল ব্যাংক এজেন্ট ও দোকানের লেনদেনের জন্য বিশেষ ভাবে তৈরি করা হয়েছে।
                         </Text>
@@ -45,8 +51,9 @@ export default function HelpScreen() {
                             So, put only correct information. For any wrong records, make a reversed entry to solve it.
                         </Text>
                         <Text>Or, just login if yor already have an account.</Text>
+                        <Heading size='sm'>সাইনআপ করার সময় সঠিক তথ্য প্রদান করুন।</Heading>
                         <Text>
-                            সাইনআপ করার সময় সঠিক তথ্য প্রদান করুন।
+
                             নিরাপদ স্থানে ইমেইল ও পাসওয়ার্ড এর তথ্য সংরক্ষণ করুন যেন প্রয়োজনের সময় তা ব্যবহার করতে পারেন। এই তথ্য পরিবর্তনের কোন সুযোগ নেই।
                             পরবর্তীতে লগইন করার সময় সঠিক ইমেইল ও পাসওয়ার্ড দিতে না পারলে ওই এ্যাকাউন্ট আর ব্যবহার করার সুযোগ থাকবেনা।
                             একবার সাইনআপ সফল হলে যেকোন সময় লগইন করে এটি ব্যবহার করতে পারবেন।
@@ -63,7 +70,7 @@ export default function HelpScreen() {
                         <Text>* Duplicate account is restricted. Do not create unnecessary account. You can see the existing account with the same mobile
                             number when you'll start typing few digits of the mobile number.</Text>
                         <Text>* Finally press Add- button if you want to create that account. Then go back screen and work it with AddMoney, SendMoney, ViewStatement</Text>
-                        <Text>সাইনআপ করার পর কিভাবে এ্যাকাউন্ট করবেন?</Text>
+                        <Heading size='sm'>সাইনআপ করার পর কিভাবে এ্যাকাউন্ট করবেন?</Heading>
                         <Text>* Set Account এ যান</Text>
                         <Text>* এ্যাকাউন্ট এর নাম - যেমন uCash, bKash ইত্যাদি অথবা আপনার নাম অথবা দোকানের নাম অথবা অন্য কারো নাম সংক্ষেপে দিন।</Text>
                         <Text>* সঠিক মোবাইল নম্বর দিন।</Text>
@@ -80,11 +87,11 @@ export default function HelpScreen() {
                             you will see a list of your accouts, select one from there</Text>
                         <Text>* Press on Add button</Text>
                         <Text>* You can see this transaction from ViewStatement</Text>
-                        <Text>কিভাবে Add Money করবেন?</Text>
+                        <Heading size='sm'>কিভাবে Add Money রেকর্ড করবেন?</Heading>
                         <Text>* Add Money পেজ এ যান</Text>
                         <Text>* টাকার অংক দিন। </Text>
-                        <Text>* কাস্টমার মোবাইল নম্বর বা যে নম্বরে টাকা ট্রান্সফার হয়েছে সেই নম্বরটি দিন</Text>
-                        <Text>* যে এ্যাকাউন্ট বা নম্বর থেকে টাকা গেছে সেই এ্যাকাউন্ট বাছাই করুন</Text>
+                        <Text>* কাস্টমার মোবাইল নম্বর বা যে নম্বর থেকে টাকা ট্রান্সফার হয়েছে সেই নম্বরটি দিন</Text>
+                        <Text>* যে এ্যাকাউন্ট বা নম্বরে টাকা যোগ হয়েছে সেই এ্যাকাউন্ট বাছাই করুন</Text>
                         <Text>* Add- বাটনে চেপে রেকর্ড নিশ্চিত করুন</Text>
                         <Text>* লেনদেনের রেকর্ড দেখার জন্য View Statement থেকে দেখে নিন।</Text>
                     </Box>
@@ -99,6 +106,13 @@ export default function HelpScreen() {
                         </Text>
                         <Text>* Press on Send button</Text>
                         <Text>* You can see this transaction from ViewStatement.</Text>
+                        <Heading size='sm'>কিভাবে Send Money রেকর্ড করবেন?</Heading>
+                        <Text>* Send Money পেজ এ যান</Text>
+                        <Text>* টাকার অংক দিন। </Text>
+                        <Text>* কাস্টমার মোবাইল নম্বর বা যে নম্বরে টাকা ট্রান্সফার হয়েছে সেই নম্বরটি দিন</Text>
+                        <Text>* যে এ্যাকাউন্ট বা নম্বর থেকে টাকা গেছে সেই এ্যাকাউন্ট বাছাই করুন</Text>
+                        <Text>* Send- বাটনে চেপে রেকর্ড নিশ্চিত করুন</Text>
+                        <Text>* লেনদেনের রেকর্ড দেখার জন্য View Statement থেকে দেখে নিন।</Text>
                     </Box>
                     <Divider />
                     <Box pt='3' pb='3'>
@@ -107,6 +121,11 @@ export default function HelpScreen() {
                         <Text>* Select an account</Text>
                         <Text>* By default it will show you the last one month's transaction statement</Text>
                         <Text>* You will see two date ranges at the top. Change it from left and right if you need old statement</Text>
+                        <Heading size='sm'>কিভাবে এ্যাকাউন্ট স্টেটমেন্ট দেখতে হয়?</Heading>
+                        <Text>* View Statement  পেজ এ যান</Text>
+                        <Text>* একটি এ্যাকাউন্ট নির্বাচন করুন</Text>
+                        <Text>* শুরুতেই এটি বর্তমান সময় হতে এক মাসের হিসাব দেখাবে</Text>
+                        <Text>* উপরের দিক থেকে ডানে বা বামে বাটন চেপে প্রয়োজন মত তারিখ পরিবর্তন করুন। তাহলে পরিবর্তিত সময়ের হিসাব দেখাবে।</Text>
                     </Box>
                     <Divider />
                     <Box pt='3' pb='3'>
@@ -129,12 +148,10 @@ export default function HelpScreen() {
                         <Text>App idea: Sk Mosharaf (Sugandhi)</Text>
                         <Text>Design and Developed by: Mamun Abdullah</Text>
                         <Text>Published by: Trade Coder Bangladesh</Text>
-                        <Text>Tech support: Joltori Digital</Text>
-                        <Text>Powered by: Joltori Trade Max (JTM)</Text>
+                        <Text>Tech support: Joltori Digital Express (JDX)</Text>
+                        <Text>App version: 1.0.0</Text>
                     </Box>
                     <Divider />
-
-
                 </VStack>
             </KeyboardAwareScrollView>
         </NativeBaseProvider>
