@@ -15,7 +15,6 @@ import '@firebase/firestore';
 //     measurementId: ""
 //   };
 
-
 if(!firebase.apps.length){
   firebase.initializeApp(firebaseConfig)
 }else {
