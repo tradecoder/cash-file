@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { firebase } from '../firebase/config';
 import { Table, Row, TableWrapper } from 'react-native-table-component';
-import { NativeBaseProvider, VStack, HStack, Box, ScrollView, Heading, Divider, Button, Flex, Input } from 'native-base';
+import { NativeBaseProvider, VStack, HStack, Box, ScrollView, Heading, Divider, Button, Flex, Input, ChevronLeftIcon, ChevronRightIcon, } from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
@@ -114,17 +114,17 @@ export default function ViewStatementScreen() {
                             <HStack flex={'1'} justifyContent={'space-between'} pl={'2'} pr={'2'} >
                                 <Box>
                                     <HStack flex={'1'}>
-                                        <Button onPress={onPressPastOpeningDays} colorScheme='warning'>{'<|'}</Button>
+                                        <Button onPress={onPressPastOpeningDays} colorScheme='warning'><ChevronLeftIcon size='4' color="white"/></Button>
                                         <Button>{new Date(openingDate).toISOString().slice(0, 10)}</Button>
-                                        <Button onPress={onPressCloserOpeningDays} colorScheme='warning'>{'|>'}</Button>
+                                        <Button onPress={onPressCloserOpeningDays} colorScheme='warning'><ChevronRightIcon size='4' color="white"/></Button>
                                     </HStack>
                                 </Box>
                                 <Box alignItems={'center'} alignSelf={'center'}>TO</Box>
                                 <Box>
                                     <HStack flex={'1'}>
-                                        <Button onPress={onPressPastClosingDays} colorScheme='warning'>{'<|'}</Button>
+                                        <Button onPress={onPressPastClosingDays} colorScheme='warning'><ChevronLeftIcon size='4' color="white"/></Button>
                                         <Button>{new Date(closingDate).toISOString().slice(0, 10)}</Button>
-                                        <Button onPress={onPressRecentClosingDays} colorScheme='warning'>{'|>'}</Button>
+                                        <Button onPress={onPressRecentClosingDays} colorScheme='warning'><ChevronRightIcon size='4' color="white"/></Button>
                                     </HStack>
                                 </Box>
                             </HStack>
