@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "cash-file",
+    "name": "jdx cash file",
     "slug": "cash-file",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +24,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "versionCode": 1.0,
+      "package": "jdxcashfile.apk"
     },
     "web": {
       "favicon": "./assets/favicon.png"

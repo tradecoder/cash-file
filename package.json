@@ -1,12 +1,12 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-   "scripts": {
+  "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject"
-    },
+  },
   "dependencies": {
     "@react-native-community/datetimepicker": "3.2.0",
     "@react-navigation/native": "^5.9.4",
@@ -14,6 +14,7 @@
     "base-64": "^1.0.0",
     "expo": "~41.0.1",
     "expo-status-bar": "~1.0.4",
+    "expo-updates": "~0.5.4",
     "firebase": "^8.2.3",
     "native-base": "^3.2.1",
     "react": "16.13.1",
@@ -35,7 +36,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
-    
   },
   "private": true
 }
