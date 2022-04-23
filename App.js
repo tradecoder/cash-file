@@ -51,7 +51,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'orange' }, headerTitleStyle: { color: 'black' }, cardStyle: { backgroundColor: 'white' } }}>
         {user ? (
           <>
-            <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Cash File", headerTitleAlign:"center" }} />
+            <Stack.Screen name="Home" component={HomeScreen} options={{ title: "JDX Cash File", headerTitleAlign:"center" }} />
             <Stack.Screen name="AddMoney" component={AddMoneyScreen} options={{ title: "Add money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'#28B463'} }} />
             <Stack.Screen name="SendMoney" component={SendMoneyScreen} options={{ title: "Send money", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'#F5311C'} }} />
             <Stack.Screen name="ViewStatement" component={ViewStatementScreen} options={{ title: "View Statement", headerTitleAlign:"center", headerTitleStyle:{color:'white'}, headerStyle:{backgroundColor:'dodgerblue'} }}/>
